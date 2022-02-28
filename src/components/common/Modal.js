@@ -6,7 +6,7 @@ export default function Modal({ onClick, width, height, children }) {
   return ReactDOM.createPortal(
     <>
       <OverlayWrapper onClick={() => onClick((prev) => !prev)} />
-      <ModalWrapper width={width} heigth={height}>
+      <ModalWrapper width={width} height={height}>
         {children}
       </ModalWrapper>
     </>,
@@ -20,12 +20,15 @@ const ModalWrapper = styled.div`
   z-index: 100;
   top: 50%;
   left: 50%;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  padding: 30px;
+  width: ${(props) => props.width || "auto"};
+  height: ${(props) => props.height || "auto"};
   background-color: #fff;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.5);
   transform: translate(-50%, -50%);
+  font-size: 1.7rem;
+  font-weight: bold;
 `;
 
 const OverlayWrapper = styled.div`
@@ -39,7 +42,7 @@ const OverlayWrapper = styled.div`
 `;
 
 Modal.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
 };
