@@ -207,7 +207,6 @@ const LoginMain = styled.main`
   align-items: center;
   width: 340px;
   height: 340px;
-  /* background: rgba(255, 255, 255, 0.3); */
   border-radius: 50%;
 
   .input-box input {

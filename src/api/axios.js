@@ -19,3 +19,28 @@ export async function postLogin(loginInfo) {
     throw new Error("로그인에 실패하였습니다.");
   }
 }
+
+export async function postSignup(formData) {
+  const res = await axios.post(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/signup`,
+    formData,
+    {
+      header: { "content-type": "multipart/form-data" },
+      withCredentials: true,
+    }
+  );
+
+  return res;
+}
+
+export async function checkSignupInfo(signupInfo) {
+  const res = await axios.post(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/signup/check`,
+    signupInfo,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return res;
+}
