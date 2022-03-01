@@ -13,12 +13,12 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalMessage, setModalMessage] = useState(false);
 
-  function handleChangeId(value) {
-    setId(value);
+  function handleChangeEmail(value) {
+    setEmail(value);
   }
 
   function handleChangePassword(value) {
@@ -27,7 +27,7 @@ function Login() {
 
   function handleClickLoginButton(e) {
     e.preventDefault();
-    dispatch(login({ navigate, setModalMessage, id, password }));
+    dispatch(login({ navigate, setModalMessage, email, password }));
   }
 
   function handleClickSignupButton() {
@@ -57,8 +57,8 @@ function Login() {
                     <input
                       type="text"
                       placeholder="아이디"
-                      value={id}
-                      onChange={(e) => handleChangeId(e.target.value)}
+                      value={email}
+                      onChange={(e) => handleChangeEmail(e.target.value)}
                       required
                     />
                   </div>
