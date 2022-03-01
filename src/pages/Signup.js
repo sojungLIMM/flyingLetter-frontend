@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -6,7 +7,7 @@ import {
   VALID_ID,
   VALID_NICKNAME,
   INVALID_PASSWORD,
-} from "../constants/index";
+} from "../constants";
 import Modal from "../components/common/Modal";
 import { postSignup, checkSignupInfo } from "../api/axios";
 import { getGeolocation } from "../api/openWeather";
@@ -16,6 +17,7 @@ import countryNames from "../assets/countryCode.json";
 function Signup() {
   const imageFile = useRef();
   const location = useGeoLocation();
+  const navigate = useNavigate();
 
   const [modalMessage, setModalMessage] = useState(false);
   const [profileImage, setProfileImage] = useState("");
@@ -95,6 +97,7 @@ function Signup() {
 
     try {
       await postSignup(formData);
+      navigate("/");
     } catch (error) {
       setModalMessage(error.data.message);
     }
@@ -298,14 +301,15 @@ const SignupWrapper = styled.div`
 
   .container {
     position: relative;
-    min-width: 50%;
+    width: 100%;
+    min-width: 400px;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     align-items: center;
-    background: #e5e5e5;
+    background: rgba(245, 244, 239, 0.7);
   }
 
   .preview-image {

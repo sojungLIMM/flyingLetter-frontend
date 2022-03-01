@@ -20,6 +20,26 @@ export async function postLogin(loginInfo) {
   }
 }
 
+export async function getLoggedInUser() {
+  try {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+      throw new Error("로그인이 필요합니다.");
+    }
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/users`,
+      {
+        headers: { accessToken: localStorage.getItem(ACCESS_TOKEN) },
+        withCredentials: true,
+      }
+    );
+
+    return data.data.user;
+  } catch (err) {
+    throw new Error("로그인에 실패하였습니다.");
+  }
+}
+
 export async function postSignup(formData) {
   const res = await axios.post(
     `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/signup`,
