@@ -5,9 +5,12 @@ import { ACCESS_TOKEN } from "../constants";
 
 export const login = createAsyncThunk(
   "user/login",
-  async ({ navigate, setModalMessage, id, password }, { rejectWithValue }) => {
+  async (
+    { navigate, setModalMessage, email, password },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await postLogin({ id, password });
+      const response = await postLogin({ email, password });
 
       navigate("/main");
 
@@ -39,7 +42,7 @@ const initialState = {
   isLoggedIn: false,
   status: "",
   data: {
-    id: "",
+    email: "",
     nickname: "",
     profileImage: "",
     language: "",

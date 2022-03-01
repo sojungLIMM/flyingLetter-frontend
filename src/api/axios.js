@@ -64,3 +64,16 @@ export async function checkSignupInfo(signupInfo) {
 
   return res;
 }
+
+export async function getFriendList(params) {
+  const res = await axios.get(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users`,
+    {
+      headers: { accessToken: localStorage.getItem(ACCESS_TOKEN) },
+      params,
+      withCredentials: true,
+    }
+  );
+
+  return res;
+}

@@ -10,7 +10,7 @@ import wirttingImage from "../assets/typing.png";
 function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id, country, language, nickname, profileImage } = useSelector(
+  const { email, country, language, nickname, profileImage } = useSelector(
     ({ user }) => user.data
   );
 
@@ -43,7 +43,7 @@ function Main() {
             <img src={profileImage} />
             <div className="info">
               <div>
-                아이디: <span>{id}</span>
+                이메일: <span>{email}</span>
               </div>
               <div>
                 닉네임: <span>{nickname}</span>

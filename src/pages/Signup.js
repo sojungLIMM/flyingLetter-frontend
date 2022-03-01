@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import {
   DEFAULT_IMAGE,
-  VALID_ID,
+  VALID_EMAIL,
   VALID_NICKNAME,
   INVALID_PASSWORD,
 } from "../constants";
@@ -22,10 +22,10 @@ function Signup() {
   const [modalMessage, setModalMessage] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [previewImage, setPreviewImage] = useState(DEFAULT_IMAGE);
-  const [isUniqueId, seIsUniqueId] = useState(false);
+  const [isUniqueEmail, seIsUniqueEmail] = useState(false);
   const [isUniqueNickname, setIsUniqueNickname] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    id: "",
+    email: "",
     password: "",
     confirmedPassword: "",
     nickname: "",
@@ -35,21 +35,21 @@ function Signup() {
     country: "",
   });
 
-  async function handleClickIdCheckButton(e) {
+  async function handleClickEmailCheckButton(e) {
     e.preventDefault();
 
-    if (!userInfo.id) {
+    if (!userInfo.email) {
       setModalMessage("아이디를 입력하세요.");
       return;
     }
 
     try {
-      await checkSignupInfo({ id: userInfo.id });
+      await checkSignupInfo({ email: userInfo.email });
 
-      seIsUniqueId(true);
-      setModalMessage(VALID_ID);
+      seIsUniqueEmail(true);
+      setModalMessage(VALID_EMAIL);
     } catch (error) {
-      setModalMessage(error.data.message);
+      setModalMessage(error.response.data.message);
     }
   }
 
@@ -67,7 +67,7 @@ function Signup() {
       setIsUniqueNickname(true);
       setModalMessage(VALID_NICKNAME);
     } catch (error) {
-      setModalMessage(error.data.message);
+      setModalMessage(error.response.data.message);
     }
   }
 
@@ -79,14 +79,14 @@ function Signup() {
       return;
     }
 
-    if (!isUniqueId || !isUniqueNickname) {
+    if (!isUniqueEmail || !isUniqueNickname) {
       setModalMessage("중복 체크를 해주세요.");
       return;
     }
 
     const formData = new FormData();
 
-    formData.append("id", userInfo.id);
+    formData.append("email", userInfo.email);
     formData.append("password", userInfo.password);
     formData.append("nickname", userInfo.nickname);
     formData.append("language", userInfo.language);
@@ -99,18 +99,18 @@ function Signup() {
       await postSignup(formData);
       navigate("/");
     } catch (error) {
-      setModalMessage(error.data.message);
+      setModalMessage(error.response.data.message);
     }
   }
 
-  function handleChangeId(id) {
+  function handleChangeEmail(email) {
     if (isUniqueNickname) {
-      seIsUniqueId(false);
+      seIsUniqueEmail(false);
     }
 
     setUserInfo((info) => ({
       ...info,
-      id,
+      email,
     }));
   }
 
@@ -129,7 +129,7 @@ function Signup() {
   }
 
   function handleChangeNickname(nickname) {
-    if (isUniqueId) {
+    if (isUniqueEmail) {
       setIsUniqueNickname(false);
     }
 
@@ -189,7 +189,7 @@ function Signup() {
         country: countryNames[res.sys.country],
       }));
     } catch (error) {
-      setModalMessage(error);
+      setModalMessage(error.response.data.message);
     }
   }
 
@@ -222,12 +222,12 @@ function Signup() {
           <div className="input-box">
             <input
               type="text"
-              value={userInfo.id}
-              placeholder="아이디"
+              value={userInfo.email}
+              placeholder="이메일"
               required
-              onChange={(e) => handleChangeId(e.target.value)}
+              onChange={(e) => handleChangeEmail(e.target.value)}
             />
-            <button type="button" onClick={handleClickIdCheckButton}>
+            <button type="button" onClick={handleClickEmailCheckButton}>
               중복 확인
             </button>
           </div>
@@ -250,7 +250,6 @@ function Signup() {
               autoComplete="off"
               onChange={(e) => handleCheckPassword(e.target.value)}
             />
-            <span></span>
           </div>
           <div className="input-box">
             <input
