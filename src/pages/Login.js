@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
 import Modal from "../components/common/Modal";
+import Header from "../components/common/Header";
 import { login } from "../features/userSlice";
 import earthImage from "../assets/The.gif";
 
@@ -34,7 +35,7 @@ function Login() {
   }
 
   return (
-    <LoginWrapper>
+    <>
       {modalMessage && (
         <Modal onClick={setModalMessage} width="50rem" height="20rem">
           <p>{modalMessage}</p>
@@ -42,10 +43,7 @@ function Login() {
       )}
       <EarthContainer>
         <div className="planet planet-earth">
-          <p>
-            Flying Letter
-            <Icon icon="openmoji:small-airplane" height="90" />
-          </p>
+          <Header />
           <div className="container">
             <div className="loader">
               <span>
@@ -86,13 +84,9 @@ function Login() {
           </div>
         </div>
       </EarthContainer>
-    </LoginWrapper>
+    </>
   );
 }
-
-const LoginWrapper = styled.div`
-  margin-top: 10px;
-`;
 
 const EarthContainer = styled.div`
   display: flex;
@@ -106,32 +100,23 @@ const EarthContainer = styled.div`
     flex-direction: column;
   }
 
-  .planet p {
-    width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5em;
-    margin-bottom: 100px;
-    border-bottom: 5px solid #66b28a;
-    font-weight: bolder;
-  }
-
   .planet .container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 80px 0;
   }
 
   .planet-earth {
     position: relative;
-    min-width: 50%;
+    width: 100%;
+    min-width: 400px;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: #e5e5e5;
+    background: rgba(245, 244, 239, 0.7);
   }
 
   .planet-earth .loader {
@@ -187,7 +172,7 @@ const EarthContainer = styled.div`
     left: 10px;
     right: 10px;
     bottom: 10px;
-    background: #e5e5e5;
+    background: rgba(245, 244, 239, 0.7);
     border-radius: 50%;
   }
 
