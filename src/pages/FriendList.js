@@ -28,8 +28,8 @@ function FriendList() {
             if (!data.data.isNext) return;
 
             setPage((prevPage) => prevPage + 1);
-          } catch (err) {
-            setModalMessage(err.response.data.message);
+          } catch (error) {
+            setModalMessage(error.response.data.message);
           }
         })();
       }
@@ -40,7 +40,7 @@ function FriendList() {
     return () => {
       window.removeEventListener("scroll", handleScrollThrottle);
     };
-  });
+  }, [page]);
 
   return (
     <FriendListWrapper>
