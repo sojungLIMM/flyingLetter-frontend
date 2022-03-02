@@ -47,11 +47,11 @@ function Main() {
   }
 
   function handleClickDeliveredCount() {
-    navigate("/letterList/delivered");
+    navigate("/letters/delivered");
   }
 
   function handleClickIntransitCount() {
-    navigate("/letterList/inTransit");
+    navigate("/letters/inTransit");
   }
 
   return (

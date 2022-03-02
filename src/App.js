@@ -6,8 +6,8 @@ import Modal from "./components/common/Modal";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
-import DeliveredLetterList from "./pages/DeliveredLetterList";
-import InTransitLetterList from "./pages/InTransitLetterList";
+import DeliveredLetters from "./pages/DeliveredLetters";
+import InTransitLetters from "./pages/InTransitLetters";
 import FriendList from "./pages/FriendList";
 import Letter from "./pages/Letter";
 import { ACCESS_TOKEN } from "./constants";
@@ -43,8 +43,10 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/letterList/delivered" element={<DeliveredLetterList />} />
-        <Route path="/letterList/inTransit" element={<InTransitLetterList />} />
+        <Route path="/letters/delivered" element={<DeliveredLetters />} />
+        <Route path="/letters/delivered/:letterId" />
+        <Route path="/letters/inTransit" element={<InTransitLetters />} />
+        <Route path="/letters/inTransit/:letterId" />
         <Route path="/friendList" element={<FriendList />} />
         <Route path="/sendLetter/:userId" element={<Letter />} />
       </Routes>
