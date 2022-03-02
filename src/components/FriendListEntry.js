@@ -4,11 +4,18 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
-function FriendListEntry({ id, profileImage, nickname, country, language }) {
+function FriendListEntry({
+  id,
+  coor,
+  profileImage,
+  nickname,
+  country,
+  language,
+}) {
   const navigate = useNavigate();
 
   function handleClickWriteButton() {
-    navigate(`/sendLetter/${id}`);
+    navigate(`/sendLetter/${id}`, { state: coor.split("_") });
   }
 
   return (
@@ -62,6 +69,7 @@ const FriendContainer = styled.div`
 
 FriendListEntry.propTypes = {
   id: PropTypes.string.isRequired,
+  coor: PropTypes.string.isRequired,
   profileImage: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,

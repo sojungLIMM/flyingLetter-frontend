@@ -9,6 +9,7 @@ import Main from "./pages/Main";
 import DeliveredLetterList from "./pages/DeliveredLetterList";
 import InTransitLetterList from "./pages/InTransitLetterList";
 import FriendList from "./pages/FriendList";
+import Letter from "./pages/Letter";
 import { ACCESS_TOKEN } from "./constants";
 import { getLoginUserByToken } from "./features/userSlice";
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/letterList/delivered" element={<DeliveredLetterList />} />
         <Route path="/letterList/inTransit" element={<InTransitLetterList />} />
         <Route path="/friendList" element={<FriendList />} />
+        <Route path="/sendLetter/:userId" element={<Letter />} />
       </Routes>
     </div>
   );

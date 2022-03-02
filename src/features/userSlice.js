@@ -42,6 +42,7 @@ const initialState = {
   isLoggedIn: false,
   status: "",
   data: {
+    _id: "",
     email: "",
     nickname: "",
     profileImage: "",
