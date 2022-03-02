@@ -5,33 +5,27 @@ import { throttle } from "lodash";
 import Modal from "../components/common/Modal";
 import FriendListEntry from "../components/FriendListEntry";
 import PrevButton from "../components/common/PrevButton";
+import ListWrapper from "../components/common/ListWrapper";
 import { getFriendList } from "../api/axios";
 
 function FriendList() {
-  const [modalMessage, setModalMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
   const [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
+    if (page === 1) {
+      fetchFriendsData();
+      return;
+    }
+
     const handleScrollThrottle = throttle(() => {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
 
       if (clientHeight + scrollTop === scrollHeight) {
-        (async () => {
-          try {
-            const { data } = await getFriendList({ page });
-
-            setFriendList((prevList) => [...prevList, ...data.data.users]);
-
-            if (!data.data.isNext) return;
-
-            setPage((prevPage) => prevPage + 1);
-          } catch (error) {
-            setModalMessage(error.response.data.message);
-          }
-        })();
+        fetchFriendsData();
       }
     }, 500);
 
@@ -42,16 +36,30 @@ function FriendList() {
     };
   }, [page]);
 
+  async function fetchFriendsData() {
+    try {
+      const { data } = await getFriendList({ page });
+
+      setFriendList((prevList) => [...prevList, ...data.data.users]);
+
+      if (!data.data.isNext) return;
+
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+    }
+  }
+
   return (
-    <FriendListWrapper>
-      {modalMessage && (
-        <Modal onClick={setModalMessage} width="50rem" height="20rem">
-          <p>{modalMessage}</p>
+    <ListWrapper>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
+          <p>{errorMessage}</p>
         </Modal>
       )}
-      <div className="container">
-        <div>
-          <PrevButton />
+      <FriendListWrapper className="container">
+        <div className="button">
+          <PrevButton path="/main" />
         </div>
         <FriendListContainer>
           {friendList.map((user) => {
@@ -71,28 +79,14 @@ function FriendList() {
             );
           })}
         </FriendListContainer>
-      </div>
-    </FriendListWrapper>
+      </FriendListWrapper>
+    </ListWrapper>
   );
 }
 
 const FriendListWrapper = styled.div`
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .container {
-    width: 100%;
-    min-height: 100vh;
-    overflow: scroll;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    background: rgba(245, 244, 239, 0.7);
+  .button {
+    width: 600px;
   }
 `;
 

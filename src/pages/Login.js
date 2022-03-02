@@ -73,10 +73,10 @@ function Login() {
                     />
                   </div>
                   <div className="button-box">
-                    <button type="submit">로그인</button>
                     <button type="button" onClick={handleClickSignupButton}>
                       회원가입
                     </button>
+                    <button type="submit">로그인</button>
                   </div>
                 </form>
               </LoginMain>
@@ -121,8 +121,8 @@ const EarthContainer = styled.div`
 
   .planet-earth .loader {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
     border-radius: 50%;
     animation: animate 4s linear infinite;
   }
@@ -136,50 +136,10 @@ const EarthContainer = styled.div`
     }
   }
 
-  .planet-earth .loader:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to top, transparent, rgba(0, 255, 249, 0.4));
-    background-size: 200px 360px;
-    background-repeat: no-repeat;
-    border-top-left-radius: 200px;
-    border-bottom-left-radius: 200px;
-  }
-
-  .planet-earth .loader:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    background: #00fff9;
-    border-radius: 50%;
-    z-index: 10;
-    box-shadow: 0 0 10px #00fff9, 0 0 20px #00fff9, 0 0 30px #00fff9,
-      0 0 40px #00fff9, 0 0 50px #00fff9, 0 0 60px #00fff9, 0 0 70px #00fff9,
-      0 0 80px #00fff9, 0 0 90px #00fff9, 0 0 100px #00fff9;
-  }
-
-  .planet-earth .loader span {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    background: rgba(245, 244, 239, 0.7);
-    border-radius: 50%;
-  }
-
   .earth {
     position: absolute;
-    width: 340px;
-    height: 340px;
+    width: 350px;
+    height: 350px;
     background-image: url(${earthImage});
     border-radius: 50%;
     background-size: cover;

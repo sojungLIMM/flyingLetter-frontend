@@ -56,7 +56,7 @@ function Letter() {
     formData.append("to", to);
     formData.append("content", content);
     formData.append("arrivedAt", arrivedAt);
-    formData.append("letterPaperImage", newLetterPaper);
+    formData.append("letterWallPaper", newLetterPaper);
 
     try {
       await sendLetter(formData, _id);
@@ -71,7 +71,7 @@ function Letter() {
   }
 
   function handleClickOkButton() {
-    navigate(-1);
+    navigate("/friendList");
     setModalMessage(false);
   }
 
@@ -95,7 +95,7 @@ function Letter() {
         </Modal>
       )}
       <div className="container">
-        <PrevButton />
+        <PrevButton path="/friendList" />
         <LetterForm encType="multipart/form-data" onSubmit={handleSubmitLetter}>
           <div className="button">
             <button
@@ -113,7 +113,7 @@ function Letter() {
             type="file"
             ref={imageFile}
             accept="image/jpg, image/png, image/jpeg"
-            name="letterPaperImage"
+            name="letterWallPaper"
             onChange={handleChangeLetterPaper}
             style={{ display: "none" }}
           />
