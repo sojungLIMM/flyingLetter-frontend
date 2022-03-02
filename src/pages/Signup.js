@@ -10,7 +10,7 @@ import {
 } from "../constants";
 import Modal from "../components/common/Modal";
 import { postSignup, checkSignupInfo } from "../api/axios";
-import { getGeolocation } from "../api/openWeather";
+import { getCurrentLocationData } from "../api/openWeather";
 import useGeoLocation from "../hooks/useGeoLocation";
 import countryNames from "../assets/countryCode.json";
 
@@ -71,7 +71,7 @@ function Signup() {
     }
   }
 
-  async function handleClickSignupButton(e) {
+  async function handleSubmitSignup(e) {
     e.preventDefault();
 
     if (userInfo.password !== userInfo.confirmedPassword) {
@@ -162,6 +162,7 @@ function Signup() {
         setPreviewImage(reader.result);
       }
     };
+
     reader.readAsDataURL(e.target.files[0]);
   }
 
@@ -177,7 +178,7 @@ function Signup() {
     }
 
     try {
-      const res = await getGeolocation(
+      const res = await getCurrentLocationData(
         location.coordinates.lat,
         location.coordinates.lng
       );
@@ -208,7 +209,7 @@ function Signup() {
             imageFile.current.click();
           }}
         />
-        <form encType="multipart/form-data" onSubmit={handleClickSignupButton}>
+        <form encType="multipart/form-data" onSubmit={handleSubmitSignup}>
           <div className="input-box">
             <input
               className="profile-image"

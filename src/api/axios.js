@@ -77,3 +77,19 @@ export async function getFriendList(params) {
 
   return res;
 }
+
+export async function sendLetter(formData, userId) {
+  const res = await axios.post(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/letters`,
+    formData,
+    {
+      headers: {
+        accessToken: localStorage.getItem(ACCESS_TOKEN),
+        "content-type": "multipart/form-data",
+      },
+      withCredentials: true,
+    }
+  );
+
+  return res;
+}

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
 import { throttle } from "lodash";
 
 import Modal from "../components/common/Modal";
-import { getFriendList } from "../api/axios";
 import FriendListEntry from "../components/FriendListEntry";
+import PrevButton from "../components/common/PrevButton";
+import { getFriendList } from "../api/axios";
 
 function FriendList() {
   const [modalMessage, setModalMessage] = useState("");
@@ -51,20 +51,18 @@ function FriendList() {
       )}
       <div className="container">
         <div>
-          <button>
-            <Icon icon="ci:circle-left" height="4rem" />
-          </button>
+          <PrevButton />
         </div>
         <FriendListContainer>
           {friendList.map((user) => {
-            console.log(user);
             const { _id, country, nickname, language, lat, lng, profileImage } =
               user;
 
             return (
               <FriendListEntry
                 key={_id}
-                id={`${lat}_${lng}`}
+                id={_id}
+                coor={`${lat}_${lng}`}
                 profileImage={profileImage}
                 nickname={nickname}
                 country={country}
@@ -84,7 +82,6 @@ const FriendListWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: scroll;
 
   .container {
     width: 100%;
@@ -96,11 +93,6 @@ const FriendListWrapper = styled.div`
     align-items: center;
     flex-direction: column;
     background: rgba(245, 244, 239, 0.7);
-  }
-
-  button {
-    border: none;
-    cursor: pointer;
   }
 `;
 
