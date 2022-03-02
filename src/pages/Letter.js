@@ -95,9 +95,9 @@ function Letter() {
         </Modal>
       )}
       <div className="container">
+        <PrevButton />
         <LetterForm encType="multipart/form-data" onSubmit={handleSubmitLetter}>
           <div className="button">
-            <PrevButton />
             <button
               type="button"
               onClick={(e) => {
@@ -164,7 +164,7 @@ const LetterContentContainer = styled.div`
   img,
   textarea {
     width: 600px;
-    height: 700px;
+    height: 90vh;
   }
 
   textarea {

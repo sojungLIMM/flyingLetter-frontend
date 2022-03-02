@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../components/common/Header";
-import { logout } from "../features/userSlice";
+import Modal from "../components/common/Modal";
 import wirttingImage from "../assets/typing.png";
+import { logout } from "../features/userSlice";
+import { getDeliveredLetters } from "../api/axios";
 
 function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { email, country, language, nickname, profileImage } = useSelector(
+  const { _id, email, country, language, nickname, profileImage } = useSelector(
     ({ user }) => user.data
   );
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [deliveredLetterCount, setDeliveredLetterCount] = useState(0);
+  const [inTransitLetterCount, setIntransitLetterCount] = useState(0);
+
+  useEffect(() => {
+    if (!_id) return;
+
+    const today = new Date();
+
+    (async () => {
+      try {
+        const { data } = await getDeliveredLetters(_id, { today, count: true });
+
+        setDeliveredLetterCount(data.data.counts.deliveredLetterCount);
+        setIntransitLetterCount(data.data.counts.inTransitLetterCount);
+      } catch (error) {
+        setErrorMessage(error.response.data.message);
+      }
+    })();
+  }, [_id]);
 
   function handleClickLogoutButton() {
     dispatch(logout());
@@ -23,8 +46,21 @@ function Main() {
     navigate("/friendList");
   }
 
+  function handleClickDeliveredCount() {
+    navigate("/letterList/delivered");
+  }
+
+  function handleClickIntransitCount() {
+    navigate("/letterList/inTransit");
+  }
+
   return (
     <MainWrapper>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
+          <p>{errorMessage}</p>
+        </Modal>
+      )}
       <div className="container">
         <ButtonContainer>
           <button>About</button>
@@ -32,10 +68,14 @@ function Main() {
         </ButtonContainer>
         <Header />
         <LetterInfoContainer>
-          <div>도착한 편지</div>
-          <div>개</div>
-          <div>배송 중 편지</div>
-          <div>개</div>
+          <div className="text">도착한 편지</div>
+          <div className="count" onClick={handleClickDeliveredCount}>
+            {deliveredLetterCount}개
+          </div>
+          <div className="text">배송 중 편지</div>
+          <div className="count" onClick={handleClickIntransitCount}>
+            {inTransitLetterCount}개
+          </div>
         </LetterInfoContainer>
         <ProfileContainer>
           <h3>-- My Profile --</h3>
@@ -116,7 +156,21 @@ const LetterInfoContainer = styled.div`
   background-color: #fff;
   box-shadow: 2px 6px 41px rgba(0, 0, 0, 0.15);
   border-radius: 11px;
-  font-size: 2em;
+
+  .count {
+    width: 30%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+
+  .text {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgba(117, 117, 117, 1);
+  }
 `;
 
 const ProfileContainer = styled.div`

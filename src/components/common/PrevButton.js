@@ -1,10 +1,13 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 
 function PrevButton() {
+  const navigate = useNavigate();
   return (
     <>
-      <Button>
+      <Button onClick={() => navigate(-1)}>
         <Icon icon="ci:circle-left" height="4rem" />
       </Button>
     </>
