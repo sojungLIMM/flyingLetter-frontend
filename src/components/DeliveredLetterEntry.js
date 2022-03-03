@@ -17,7 +17,7 @@ function DeliveredLetterEntry({
 
   function handleClickLetter() {
     navigate(`/letters/delivered/${id}`, {
-      state: { content, letterWallPaper },
+      state: { id, content, letterWallPaper },
     });
   }
 

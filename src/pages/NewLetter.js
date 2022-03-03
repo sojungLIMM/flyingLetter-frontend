@@ -6,11 +6,13 @@ import styled from "styled-components";
 
 import PrevButton from "../components/common/PrevButton";
 import Modal from "../components/common/Modal";
+import { LetterWrapper } from "../components/common/LetterWrapper";
+import { LetterContentContainer } from "../components/common/LetterContentContainer";
 import paper from "../assets/leaf.jpg";
 import { getDistance } from "../utils/getDistance";
 import { sendLetter } from "../api/axios";
 
-function Letter() {
+function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
   const [lat2, lng2] = useLocation().state;
   const to = useParams().userId;
@@ -131,52 +133,10 @@ function Letter() {
   );
 }
 
-const LetterWrapper = styled.div`
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .container {
-    position: relative;
-    width: 100%;
-    min-width: 400px;
-    height: 100vh;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(245, 244, 239, 0.7);
-  }
-`;
-
 const LetterForm = styled.form`
   .button {
     width: 600px;
   }
 `;
 
-const LetterContentContainer = styled.div`
-  position: relative;
-
-  img,
-  textarea {
-    width: 600px;
-    height: 90vh;
-  }
-
-  textarea {
-    padding: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.5);
-    object-fit: cover;
-    border: none;
-    font-size: 1.5rem;
-  }
-`;
-
-export default Letter;
+export default NewLetter;
