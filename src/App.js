@@ -7,9 +7,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
 import DeliveredLetters from "./pages/DeliveredLetters";
+import DeliveredLetterDetail from "./pages/DeliveredLetterDetail";
 import InTransitLetters from "./pages/InTransitLetters";
 import FriendList from "./pages/FriendList";
-import Letter from "./pages/Letter";
+import NewLetter from "./pages/NewLetter";
 import { ACCESS_TOKEN } from "./constants";
 import { getLoginUserByToken } from "./features/userSlice";
 
@@ -44,11 +45,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/main" element={<Main />} />
         <Route path="/letters/delivered" element={<DeliveredLetters />} />
-        <Route path="/letters/delivered/:letterId" />
+        <Route
+          path="/letters/delivered/:letterId"
+          element={<DeliveredLetterDetail />}
+        />
         <Route path="/letters/inTransit" element={<InTransitLetters />} />
         <Route path="/letters/inTransit/:letterId" />
         <Route path="/friendList" element={<FriendList />} />
-        <Route path="/sendLetter/:userId" element={<Letter />} />
+        <Route path="/sendLetter/:userId" element={<NewLetter />} />
       </Routes>
     </div>
   );
