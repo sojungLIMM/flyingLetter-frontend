@@ -15,7 +15,9 @@ function FriendListEntry({
   const navigate = useNavigate();
 
   function handleClickWriteButton() {
-    navigate(`/sendLetter/${id}`, { state: coor.split("_") });
+    navigate(`/sendLetter/${id}`, {
+      state: { coor: coor.split("_"), path: "/friendList" },
+    });
   }
 
   return (

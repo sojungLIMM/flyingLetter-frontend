@@ -71,7 +71,7 @@ function DeliveredLetters() {
       )}
       <LettersWrapper className="container">
         <div className="button">
-          <PrevButton />
+          <PrevButton path="/main" />
         </div>
         {!letters.length && <p>{NO_DELIVERED_LETTER}</p>}
         <LettersContainer>
@@ -87,6 +87,8 @@ function DeliveredLetters() {
                 arrivedAt={arrivedAt}
                 nickname={from.nickname}
                 country={from.country}
+                lat={from.lat}
+                lng={from.lng}
               />
             );
           })}
