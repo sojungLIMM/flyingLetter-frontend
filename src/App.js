@@ -3,14 +3,14 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "./components/common/Modal";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Main from "./pages/Main";
-import DeliveredLetters from "./pages/DeliveredLetters";
-import DeliveredLetterDetail from "./pages/DeliveredLetterDetail";
-import InTransitLetters from "./pages/InTransitLetters";
-import FriendList from "./pages/FriendList";
-import NewLetter from "./pages/NewLetter";
+import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
+import Main from "./components/Main/Main";
+import DeliveredLetters from "./components/DeliveredLetters/DeliveredLetters";
+import DeliveredLetterDetail from "./components/DeliveredLetters/DeliveredLetterDetail";
+import InTransitLetters from "./components/InTransitLetters/InTransitLetters";
+import FriendList from "./components/FriendList/FriendList";
+import NewLetter from "./components/NewLetter/NewLetter";
 import { ACCESS_TOKEN } from "./constants";
 import { getLoginUserByToken } from "./features/userSlice";
 

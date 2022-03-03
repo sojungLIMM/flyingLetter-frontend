@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { formatDistanceToNow } from "date-fns";
 
-import plane from "../assets/planeWithMail.png";
+import plane from "../../assets/planeWithMail.png";
 
 function InTransitLetterEntry({ id, arrivedAt, nickname, country, lat, lng }) {
   const navigate = useNavigate();

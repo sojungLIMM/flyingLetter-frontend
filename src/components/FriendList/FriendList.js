@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { throttle } from "lodash";
 
-import Modal from "../components/common/Modal";
-import FriendListEntry from "../components/FriendListEntry";
-import PrevButton from "../components/common/PrevButton";
-import ListWrapper from "../components/common/ListWrapper";
-import { getFriendList } from "../api/axios";
+import Modal from "../common/Modal";
+import FriendListEntry from "../FriendList/FriendListEntry";
+import PrevButton from "../common/PrevButton";
+import ListWrapper from "../common/ListWrapper";
+import { getFriendList } from "../../api/axios";
 
 function FriendList() {
   const [errorMessage, setErrorMessage] = useState("");

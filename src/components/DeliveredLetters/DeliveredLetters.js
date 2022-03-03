@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { throttle } from "lodash";
 
-import Modal from "../components/common/Modal";
-import InTransitLetterEntry from "../components/InTransitLetterEntry";
-import ListWrapper from "../components/common/ListWrapper";
-import PrevButton from "../components/common/PrevButton";
-import { getDeliveredLetters } from "../api/axios";
-import { NO_FLYING_LETTER } from "../constants";
+import Modal from "../common/Modal";
+import DeliveredLetterEntry from "../DeliveredLetters/DeliveredLetterEntry";
+import ListWrapper from "../common/ListWrapper";
+import PrevButton from "../common/PrevButton";
+import { getDeliveredLetters } from "../../api/axios";
+import { NO_DELIVERED_LETTER } from "../../constants";
 
-function InTransitLetters() {
+function DeliveredLetters() {
   const userId = useSelector(({ user }) => user.data._id);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,7 +49,7 @@ function InTransitLetters() {
       const { data } = await getDeliveredLetters(userId, {
         page,
         today,
-        isDelivered: false,
+        isDelivered: true,
       });
 
       setLetters((prevLetters) => [...prevLetters, ...data.data.letters]);
@@ -71,17 +71,19 @@ function InTransitLetters() {
       )}
       <LettersWrapper className="container">
         <div className="button">
-          <PrevButton />
+          <PrevButton path="/main" />
         </div>
-        {!letters.length && <p>{NO_FLYING_LETTER}</p>}
+        {!letters.length && <p>{NO_DELIVERED_LETTER}</p>}
         <LettersContainer>
           {letters.map((letter) => {
-            const { _id, arrivedAt, from } = letter;
+            const { _id, content, letterWallPaper, arrivedAt, from } = letter;
 
             return (
-              <InTransitLetterEntry
+              <DeliveredLetterEntry
                 key={_id}
                 id={_id}
+                content={content}
+                letterWallPaper={letterWallPaper}
                 arrivedAt={arrivedAt}
                 nickname={from.nickname}
                 country={from.country}
@@ -120,4 +122,4 @@ const LettersContainer = styled.div`
   row-gap: 3vh;
 `;
 
-export default InTransitLetters;
+export default DeliveredLetters;

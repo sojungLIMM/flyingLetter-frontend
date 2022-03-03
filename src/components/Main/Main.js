@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Header from "../components/common/Header";
-import Modal from "../components/common/Modal";
-import wirttingImage from "../assets/typing.png";
-import { logout } from "../features/userSlice";
-import { getDeliveredLetters } from "../api/axios";
+import Header from "../common/Header";
+import Modal from "../common/Modal";
+import wirttingImage from "../../assets/typing.png";
+import { logout } from "../../features/userSlice";
+import { getDeliveredLetters } from "../../api/axios";
 
 function Main() {
   const navigate = useNavigate();

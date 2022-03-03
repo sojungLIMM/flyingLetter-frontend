@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
-import Modal from "../components/common/Modal";
-import Header from "../components/common/Header";
-import { login } from "../features/userSlice";
-import earthImage from "../assets/The.gif";
+import Modal from "../common/Modal";
+import Header from "../common/Header";
+import { login } from "../../features/userSlice";
+import earthImage from "../../assets/The.gif";
 
 function Login() {
   const navigate = useNavigate();
