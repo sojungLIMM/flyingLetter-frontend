@@ -14,8 +14,8 @@ import { sendLetter } from "../api/axios";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
-  const [lat2, lng2] = useLocation().state;
-  const to = useParams().userId;
+  const friendData = useLocation().state;
+  const friendId = useParams().userId;
   const navigate = useNavigate();
   const imageFile = useRef();
 
@@ -47,6 +47,7 @@ function NewLetter() {
 
   async function handleSubmitLetter(e) {
     e.preventDefault();
+    const [lat2, lng2] = friendData.coor;
 
     const distance = getDistance([lat, lng], [lat2, lng2]);
     const totalHours = Math.floor(distance / 800);
@@ -55,7 +56,7 @@ function NewLetter() {
     const formData = new FormData();
 
     formData.append("from", _id);
-    formData.append("to", to);
+    formData.append("to", friendId);
     formData.append("content", content);
     formData.append("arrivedAt", arrivedAt);
     formData.append("letterWallPaper", newLetterPaper);
@@ -73,7 +74,7 @@ function NewLetter() {
   }
 
   function handleClickOkButton() {
-    navigate("/friendList");
+    navigate(friendData.path);
     setModalMessage(false);
   }
 
@@ -97,7 +98,7 @@ function NewLetter() {
         </Modal>
       )}
       <div className="container">
-        <PrevButton path="/friendList" />
+        <PrevButton path={friendData.path} />
         <LetterForm encType="multipart/form-data" onSubmit={handleSubmitLetter}>
           <div className="button">
             <button

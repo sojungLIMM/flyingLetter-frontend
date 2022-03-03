@@ -8,10 +8,12 @@ import paper from "../assets/leaf.jpg";
 
 function DeliveredLetterDetail() {
   const navigate = useNavigate();
-  const { id, content, letterWallPaper } = useLocation().state;
+  const { id, content, letterWallPaper, lat, lng } = useLocation().state;
 
   function handleClickReplayButton() {
-    navigate(`/sendLetter/${id}`, { state: { path: "/letters/delivered" } });
+    navigate(`/sendLetter/${id}`, {
+      state: { coor: [lat, lng], path: "/letters/delivered" },
+    });
   }
 
   return (

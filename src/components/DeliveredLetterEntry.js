@@ -12,12 +12,14 @@ function DeliveredLetterEntry({
   arrivedAt,
   nickname,
   country,
+  lat,
+  lng,
 }) {
   const navigate = useNavigate();
 
   function handleClickLetter() {
     navigate(`/letters/delivered/${id}`, {
-      state: { id, content, letterWallPaper },
+      state: { id, content, letterWallPaper, lat, lng },
     });
   }
 
@@ -60,6 +62,8 @@ DeliveredLetterEntry.propTypes = {
   arrivedAt: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
 };
 
 export default DeliveredLetterEntry;
