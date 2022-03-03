@@ -2,9 +2,9 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { LetterWrapper } from "../components/common/LetterWrapper";
-import { LetterContentContainer } from "../components/common/LetterContentContainer";
-import paper from "../assets/leaf.jpg";
+import { LetterWrapper } from "../common/LetterWrapper";
+import { LetterContentContainer } from "../common/LetterContentContainer";
+import paper from "../../assets/leaf.jpg";
 
 function DeliveredLetterDetail() {
   const navigate = useNavigate();

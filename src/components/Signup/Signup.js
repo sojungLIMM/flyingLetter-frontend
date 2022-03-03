@@ -7,12 +7,12 @@ import {
   VALID_EMAIL,
   VALID_NICKNAME,
   INVALID_PASSWORD,
-} from "../constants";
-import Modal from "../components/common/Modal";
-import { postSignup, checkSignupInfo } from "../api/axios";
-import { getCurrentLocationData } from "../api/openWeather";
-import useGeoLocation from "../hooks/useGeoLocation";
-import countryNames from "../assets/countryCode.json";
+} from "../../constants";
+import Modal from "../common/Modal";
+import { postSignup, checkSignupInfo } from "../../api/axios";
+import { getCurrentLocationData } from "../../api/openWeather";
+import useGeoLocation from "../../hooks/useGeoLocation";
+import countryNames from "../../assets/countryCode.json";
 
 function Signup() {
   const imageFile = useRef();

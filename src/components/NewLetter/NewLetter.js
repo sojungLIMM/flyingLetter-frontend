@@ -4,13 +4,13 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { addHours } from "date-fns";
 import styled from "styled-components";
 
-import PrevButton from "../components/common/PrevButton";
-import Modal from "../components/common/Modal";
-import { LetterWrapper } from "../components/common/LetterWrapper";
-import { LetterContentContainer } from "../components/common/LetterContentContainer";
-import paper from "../assets/leaf.jpg";
-import { getDistance } from "../utils/getDistance";
-import { sendLetter } from "../api/axios";
+import PrevButton from "../common/PrevButton";
+import Modal from "../common/Modal";
+import { LetterWrapper } from "../common/LetterWrapper";
+import { LetterContentContainer } from "../common/LetterContentContainer";
+import paper from "../../assets/leaf.jpg";
+import { getDistance } from "../../utils/getDistance";
+import { sendLetter } from "../../api/axios";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
