@@ -8,10 +8,10 @@ const ListWrapper = styled.div`
   align-items: center;
 
   .container {
+    position: relative;
     width: 100%;
     min-height: 100vh;
     overflow: scroll;
-    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;

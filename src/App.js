@@ -9,6 +9,7 @@ import Main from "./components/Main/Main";
 import DeliveredLetters from "./components/DeliveredLetters/DeliveredLetters";
 import DeliveredLetterDetail from "./components/DeliveredLetters/DeliveredLetterDetail";
 import InTransitLetters from "./components/InTransitLetters/InTransitLetters";
+import InTransitLetterDetail from "./components/InTransitLetters/InTransitLetterDetail";
 import FriendList from "./components/FriendList/FriendList";
 import NewLetter from "./components/NewLetter/NewLetter";
 import { ACCESS_TOKEN } from "./constants";
@@ -50,7 +51,10 @@ function App() {
           element={<DeliveredLetterDetail />}
         />
         <Route path="/letters/inTransit" element={<InTransitLetters />} />
-        <Route path="/letters/inTransit/:letterId" />
+        <Route
+          path="/letters/inTransit/:letterId"
+          element={<InTransitLetterDetail />}
+        />
         <Route path="/friendList" element={<FriendList />} />
         <Route path="/sendLetter/:userId" element={<NewLetter />} />
       </Routes>

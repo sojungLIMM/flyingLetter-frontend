@@ -11,6 +11,7 @@ import { getFriendList } from "../../api/axios";
 function FriendList() {
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
+  const [isNext, setIsNext] = useState(true);
   const [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
@@ -40,10 +41,11 @@ function FriendList() {
     try {
       const { data } = await getFriendList({ page });
 
+      setIsNext(data.data.isNext);
+
+      if (!isNext) return;
+
       setFriendList((prevList) => [...prevList, ...data.data.users]);
-
-      if (!data.data.isNext) return;
-
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       setErrorMessage(error.response.data.message);

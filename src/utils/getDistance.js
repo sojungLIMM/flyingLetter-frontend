@@ -1,10 +1,10 @@
 const EARTH_RADIUS = 6371;
 
-export function getDistance(origin, destination) {
-  const lon1 = toRadian(origin[1]);
+function getDistance(origin, destination) {
   const lat1 = toRadian(origin[0]);
-  const lon2 = toRadian(destination[1]);
+  const lon1 = toRadian(origin[1]);
   const lat2 = toRadian(destination[0]);
+  const lon2 = toRadian(destination[1]);
 
   const deltaLat = lat2 - lat1;
   const deltaLon = lon2 - lon1;
@@ -20,3 +20,5 @@ export function getDistance(origin, destination) {
 function toRadian(degree) {
   return (degree * Math.PI) / 180;
 }
+
+export default getDistance;

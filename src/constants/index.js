@@ -11,3 +11,10 @@ export const INVALID_PASSWORD = "비밀번호가 일치하지 않습니다.";
 
 export const NO_DELIVERED_LETTER = "아직 도착한 편지가 없습니다.";
 export const NO_FLYING_LETTER = "배송 중인 편지가 없습니다.";
+
+export const OPEN_STREET_MAP =
+  "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
+export const OPEN_STREET_MAP_URL =
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+export const KM_PER_SECOND = 0.222;
