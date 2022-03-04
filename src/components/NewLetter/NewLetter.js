@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { addHours } from "date-fns";
+import { addMinutes } from "date-fns";
 import styled from "styled-components";
 
 import PrevButton from "../common/PrevButton";
@@ -9,7 +9,7 @@ import Modal from "../common/Modal";
 import { LetterWrapper } from "../common/LetterWrapper";
 import { LetterContentContainer } from "../common/LetterContentContainer";
 import paper from "../../assets/leaf.jpg";
-import { getDistance } from "../../utils/getDistance";
+import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
 
 function NewLetter() {
@@ -50,8 +50,8 @@ function NewLetter() {
     const [lat2, lng2] = friendData.coor;
 
     const distance = getDistance([lat, lng], [lat2, lng2]);
-    const totalHours = Math.floor(distance / 800);
-    const arrivedAt = addHours(new Date(), totalHours);
+    const totalMinutes = distance / 13.34;
+    const arrivedAt = addMinutes(new Date(), totalMinutes);
 
     const formData = new FormData();
 

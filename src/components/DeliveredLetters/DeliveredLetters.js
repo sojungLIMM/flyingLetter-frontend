@@ -12,14 +12,14 @@ import { NO_DELIVERED_LETTER } from "../../constants";
 
 function DeliveredLetters() {
   const userId = useSelector(({ user }) => user.data._id);
+  const loading = useSelector(({ user }) => user.status);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
+  const [isNext, setIsNext] = useState(true);
   const [letters, setLetters] = useState([]);
 
   useEffect(() => {
-    if (!userId) return;
-
     if (page === 1) {
       fetchLettersData();
       return;
@@ -45,17 +45,17 @@ function DeliveredLetters() {
   async function fetchLettersData() {
     try {
       const today = new Date();
-
       const { data } = await getDeliveredLetters(userId, {
         page,
         today,
         isDelivered: true,
       });
 
+      setIsNext(data.data.isNext);
+
+      if (!isNext) return;
+
       setLetters((prevLetters) => [...prevLetters, ...data.data.letters]);
-
-      if (!data.data.isNext) return;
-
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -74,25 +74,27 @@ function DeliveredLetters() {
           <PrevButton path="/main" />
         </div>
         {!letters.length && <p>{NO_DELIVERED_LETTER}</p>}
-        <LettersContainer>
-          {letters.map((letter) => {
-            const { _id, content, letterWallPaper, arrivedAt, from } = letter;
+        {loading === "success" && (
+          <LettersContainer>
+            {letters.map((letter) => {
+              const { _id, content, letterWallPaper, arrivedAt, from } = letter;
 
-            return (
-              <DeliveredLetterEntry
-                key={_id}
-                id={_id}
-                content={content}
-                letterWallPaper={letterWallPaper}
-                arrivedAt={arrivedAt}
-                nickname={from.nickname}
-                country={from.country}
-                lat={from.lat}
-                lng={from.lng}
-              />
-            );
-          })}
-        </LettersContainer>
+              return (
+                <DeliveredLetterEntry
+                  key={_id}
+                  id={_id}
+                  content={content}
+                  letterWallPaper={letterWallPaper}
+                  arrivedAt={arrivedAt}
+                  nickname={from.nickname}
+                  country={from.country}
+                  lat={from.lat}
+                  lng={from.lng}
+                />
+              );
+            })}
+          </LettersContainer>
+        )}
       </LettersWrapper>
     </ListWrapper>
   );

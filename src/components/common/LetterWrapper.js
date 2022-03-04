@@ -16,7 +16,6 @@ export const LetterWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    align-items: center;
     background: rgba(245, 244, 239, 0.7);
   }
 `;

@@ -12,14 +12,14 @@ import { NO_FLYING_LETTER } from "../../constants";
 
 function InTransitLetters() {
   const userId = useSelector(({ user }) => user.data._id);
+  const loading = useSelector(({ user }) => user.status);
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [isNext, setIsNext] = useState(true);
   const [page, setPage] = useState(1);
   const [letters, setLetters] = useState([]);
 
   useEffect(() => {
-    if (!userId) return;
-
     if (page === 1) {
       fetchLettersData();
       return;
@@ -45,17 +45,17 @@ function InTransitLetters() {
   async function fetchLettersData() {
     try {
       const today = new Date();
-
       const { data } = await getDeliveredLetters(userId, {
         page,
         today,
         isDelivered: false,
       });
 
+      setIsNext(data.data.isNext);
+
+      if (!isNext) return;
+
       setLetters((prevLetters) => [...prevLetters, ...data.data.letters]);
-
-      if (!data.data.isNext) return;
-
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -74,23 +74,25 @@ function InTransitLetters() {
           <PrevButton />
         </div>
         {!letters.length && <p>{NO_FLYING_LETTER}</p>}
-        <LettersContainer>
-          {letters.map((letter) => {
-            const { _id, arrivedAt, from } = letter;
+        {loading === "success" && (
+          <LettersContainer>
+            {letters.map((letter) => {
+              const { _id, arrivedAt, from } = letter;
 
-            return (
-              <InTransitLetterEntry
-                key={_id}
-                id={_id}
-                arrivedAt={arrivedAt}
-                nickname={from.nickname}
-                country={from.country}
-                lat={from.lat}
-                lng={from.lng}
-              />
-            );
-          })}
-        </LettersContainer>
+              return (
+                <InTransitLetterEntry
+                  key={_id}
+                  id={_id}
+                  arrivedAt={arrivedAt}
+                  nickname={from.nickname}
+                  country={from.country}
+                  lat={from.lat}
+                  lng={from.lng}
+                />
+              );
+            })}
+          </LettersContainer>
+        )}
       </LettersWrapper>
     </ListWrapper>
   );
