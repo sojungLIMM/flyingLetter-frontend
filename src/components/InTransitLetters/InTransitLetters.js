@@ -70,9 +70,7 @@ function InTransitLetters() {
         </Modal>
       )}
       <LettersWrapper className="container">
-        <div className="button">
-          <PrevButton />
-        </div>
+        <PrevButton />
         {!letters.length && <p>{NO_FLYING_LETTER}</p>}
         {loading === "success" && (
           <LettersContainer>
@@ -99,10 +97,6 @@ function InTransitLetters() {
 }
 
 const LettersWrapper = styled.div`
-  .button {
-    width: 600px;
-  }
-
   p {
     line-height: 50vh;
     text-align: center;

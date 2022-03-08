@@ -14,7 +14,7 @@ function FriendListEntry({
 }) {
   const navigate = useNavigate();
 
-  function handleClickWriteButton() {
+  function handleWriteButtonClick() {
     navigate(`/sendLetter/${id}`, {
       state: { coor: coor.split("_"), path: "/friendList" },
     });
@@ -22,11 +22,11 @@ function FriendListEntry({
 
   return (
     <FriendContainer>
-      <img src={profileImage} />
+      <img src={profileImage} alt="profile image" />
       <div className="nickname">{nickname}</div>
       <div>{country}</div>
       <div>{language}</div>
-      <button onClick={handleClickWriteButton}>
+      <button onClick={handleWriteButtonClick}>
         편지쓰기
         <Icon icon="ic:round-airplane-ticket" color="#545454" height="15" />
       </button>

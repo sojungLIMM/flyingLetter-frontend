@@ -31,7 +31,7 @@
   "ignorePatterns": ["node_modules/"],
   "rules": {
     "prettier/prettier": "error",
-    "indent": ["error", 2],
+    "indent": ["error", 2, {"SwitchCase": 1}],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
 	  "linebreak-style": ["error", "unix"],

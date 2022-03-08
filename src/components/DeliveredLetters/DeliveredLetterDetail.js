@@ -9,7 +9,7 @@ function DeliveredLetterDetail() {
   const navigate = useNavigate();
   const { id, content, letterWallPaper, lat, lng } = useLocation().state;
 
-  function handleClickReplayButton() {
+  function handleReplayButtonClick() {
     navigate(`/sendLetter/${id}`, {
       state: { coor: [lat, lng], path: "/letters/delivered" },
     });
@@ -18,9 +18,12 @@ function DeliveredLetterDetail() {
   return (
     <LetterWrapper>
       <div className="container">
-        <button onClick={handleClickReplayButton}>답장하기</button>
+        <button onClick={handleReplayButtonClick}>답장하기</button>
         <LetterContentContainer>
-          <img src={letterWallPaper ? letterWallPaper : paper} />
+          <img
+            src={letterWallPaper ? letterWallPaper : paper}
+            alt="wallpaper"
+          />
           <textarea value={content} readOnly />
         </LetterContentContainer>
       </div>

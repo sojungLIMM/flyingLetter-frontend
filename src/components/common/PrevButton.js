@@ -8,18 +8,22 @@ function PrevButton({ path = -1 }) {
   const navigate = useNavigate();
 
   return (
-    <>
-      <Button onClick={() => navigate(path)}>
+    <ButtonWrappaer>
+      <button onClick={() => navigate(path)}>
         <Icon icon="ci:circle-left" height="4rem" />
-      </Button>
-    </>
+      </button>
+    </ButtonWrappaer>
   );
 }
 
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+const ButtonWrappaer = styled.div`
+  width: 600px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 PrevButton.propTypes = {

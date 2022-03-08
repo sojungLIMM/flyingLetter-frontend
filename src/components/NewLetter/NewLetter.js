@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { addMinutes } from "date-fns";
+import { addSeconds } from "date-fns";
 import styled from "styled-components";
 
 import PrevButton from "../common/PrevButton";
@@ -11,6 +11,7 @@ import { LetterContentContainer } from "../common/LetterContentContainer";
 import paper from "../../assets/leaf.jpg";
 import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
+import { KM_PER_SECOND } from "../../constants";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
@@ -25,7 +26,7 @@ function NewLetter() {
   const [modalMessage, setModalMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  function handleChangeLetterPaper(e) {
+  function handleLetterPaperChange(e) {
     if (e.target.files[0]) {
       setLetterPaper(e.target.files[0]);
       setNewLetterPaper(e.target.files[0]);
@@ -45,13 +46,13 @@ function NewLetter() {
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  async function handleSubmitLetter(e) {
+  async function handleLetterSubmit(e) {
     e.preventDefault();
     const [lat2, lng2] = friendData.coor;
 
     const distance = getDistance([lat, lng], [lat2, lng2]);
-    const totalMinutes = distance / 13.34;
-    const arrivedAt = addMinutes(new Date(), totalMinutes);
+    const totalSeconds = distance / KM_PER_SECOND;
+    const arrivedAt = addSeconds(new Date(), totalSeconds);
 
     const formData = new FormData();
 
@@ -69,16 +70,16 @@ function NewLetter() {
     }
   }
 
-  function handleChangeContent(content) {
+  function handleContentChange(content) {
     setContent(content);
   }
 
-  function handleClickOkButton() {
+  function handleOkButtonClick() {
     navigate(friendData.path);
     setModalMessage(false);
   }
 
-  function handleClickHomeButton() {
+  function handleHomeButtonClick() {
     navigate("/");
     setErrorMessage(false);
   }
@@ -88,18 +89,18 @@ function NewLetter() {
       {modalMessage && (
         <Modal width="50rem" height="20rem">
           <p>{modalMessage}</p>
-          <button onClick={handleClickOkButton}>확인</button>
+          <button onClick={handleOkButtonClick}>확인</button>
         </Modal>
       )}
       {errorMessage && (
         <Modal width="50rem" height="20rem">
           <p>{errorMessage}</p>
-          <button onClick={handleClickHomeButton}>홈으로</button>
+          <button onClick={handleHomeButtonClick}>홈으로</button>
         </Modal>
       )}
       <div className="container">
         <PrevButton path={friendData.path} />
-        <LetterForm encType="multipart/form-data" onSubmit={handleSubmitLetter}>
+        <LetterForm encType="multipart/form-data" onSubmit={handleLetterSubmit}>
           <div className="button">
             <button
               type="button"
@@ -117,15 +118,15 @@ function NewLetter() {
             ref={imageFile}
             accept="image/jpg, image/png, image/jpeg"
             name="letterWallPaper"
-            onChange={handleChangeLetterPaper}
+            onChange={handleLetterPaperChange}
             style={{ display: "none" }}
           />
         </LetterForm>
         <LetterContentContainer>
-          <img src={letterPaper} />
+          <img src={letterPaper} alt="wallpaper" />
           <textarea
             value={content}
-            onChange={(e) => handleChangeContent(e.target.value)}
+            onChange={(e) => handleContentChange(e.target.value)}
             required
           />
         </LetterContentContainer>

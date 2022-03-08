@@ -37,20 +37,20 @@ function Main() {
     })();
   }, [_id]);
 
-  function handleClickLogoutButton() {
+  function handleLogoutButtonClick() {
     dispatch(logout());
     navigate("/");
   }
 
-  function handleClickFriendSelectButton() {
+  function handleFriendSelectButtonClick() {
     navigate("/friendList");
   }
 
-  function handleClickDeliveredCount() {
+  function handleDeliveredCountClick() {
     navigate("/letters/delivered");
   }
 
-  function handleClickIntransitCount() {
+  function handleIntransitCountClick() {
     navigate("/letters/inTransit");
   }
 
@@ -64,23 +64,23 @@ function Main() {
       <div className="container">
         <ButtonContainer>
           <button>About</button>
-          <button onClick={handleClickLogoutButton}>logout</button>
+          <button onClick={handleLogoutButtonClick}>logout</button>
         </ButtonContainer>
         <Header />
         <LetterInfoContainer>
           <div className="text">도착한 편지</div>
-          <div className="count" onClick={handleClickDeliveredCount}>
+          <div className="count" onClick={handleDeliveredCountClick}>
             {deliveredLetterCount}개
           </div>
           <div className="text">배송 중 편지</div>
-          <div className="count" onClick={handleClickIntransitCount}>
+          <div className="count" onClick={handleIntransitCountClick}>
             {inTransitLetterCount}개
           </div>
         </LetterInfoContainer>
         <ProfileContainer>
           <h3>-- My Profile --</h3>
           <div className="info-container">
-            <img src={profileImage} />
+            <img src={profileImage} alt="profile image" />
             <div className="info">
               <div>
                 이메일: <span>{email}</span>
@@ -102,8 +102,8 @@ function Main() {
           <div className="content">
             <p>세계 곳곳의 새로운 펜팔 친구에게</p>
             <p>편지를 보내보세요</p>
-            <img src={wirttingImage} />
-            <button onClick={handleClickFriendSelectButton}>선택하기</button>
+            <img src={wirttingImage} alt="typewriter image" />
+            <button onClick={handleFriendSelectButtonClick}>선택하기</button>
           </div>
         </FriendListEntryContainer>
       </div>
