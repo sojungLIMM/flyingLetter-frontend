@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
 import Modal from "./components/common/Modal";
 import Login from "./components/Login/Login";
@@ -34,7 +35,7 @@ function App() {
   }
 
   return (
-    <div>
+    <Wrapper>
       {modalMessage && (
         <Modal width="50rem" height="20rem">
           <div>{modalMessage}</div>
@@ -58,8 +59,17 @@ function App() {
         <Route path="/friendList" element={<FriendList />} />
         <Route path="/sendLetter/:userId" element={<NewLetter />} />
       </Routes>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(245, 244, 239, 0.7);
+`;
 
 export default App;

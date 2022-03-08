@@ -1,23 +1,14 @@
 import styled from "styled-components";
 
 const ListWrapper = styled.div`
+  width: 100%;
   min-height: 100vh;
-  min-width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-
-  .container {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    overflow: scroll;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    background: rgba(245, 244, 239, 0.7);
-  }
+  overflow: scroll;
+  background: rgba(245, 244, 239, 0.7);
 `;
 
 export default ListWrapper;

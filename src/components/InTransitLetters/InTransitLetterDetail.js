@@ -16,7 +16,7 @@ import lightningImg from "../../assets/lightining.png";
 import countryNames from "../../assets/countryCode.json";
 import getDistance from "../../utils/getDistance";
 import getCoorordinate from "../../utils/getCoorordinate";
-import getCurrentWeather from "../../utils/getCurrentWeather";
+import getWeatherType from "../../utils/getWeatherType";
 import { formatTotalTime, formatLeftTime } from "../../utils/formatTime";
 import { getCurrentLocationData } from "../../api/openWeather";
 import { KM_PER_SECOND } from "../../constants";
@@ -108,7 +108,7 @@ function InTransitLetterDetail() {
         );
 
         const res = await getCurrentLocationData(...currentCoordinate);
-        const weatherType = getCurrentWeather(res.weather[0].id);
+        const weatherType = getWeatherType(res.weather[0].id);
 
         setFlyingMailInfo((prev) => ({
           ...prev,

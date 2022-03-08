@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LetterContentContainer = styled.div`
+const LetterContentContainer = styled.div`
   position: relative;
 
   img,
@@ -20,3 +20,5 @@ export const LetterContentContainer = styled.div`
     font-size: 1.5rem;
   }
 `;
+
+export default LetterContentContainer;

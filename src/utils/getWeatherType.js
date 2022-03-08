@@ -1,4 +1,4 @@
-function getCurrentWeather(typeId) {
+function getWeatherType(typeId) {
   let currentWeather = typeId?.toString();
 
   switch (currentWeather) {
@@ -43,4 +43,4 @@ function getCurrentWeather(typeId) {
   return currentWeather;
 }
 
-export default getCurrentWeather;
+export default getWeatherType;

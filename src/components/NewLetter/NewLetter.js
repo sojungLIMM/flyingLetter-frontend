@@ -6,8 +6,9 @@ import styled from "styled-components";
 
 import PrevButton from "../common/PrevButton";
 import Modal from "../common/Modal";
-import { LetterWrapper } from "../common/LetterWrapper";
-import { LetterContentContainer } from "../common/LetterContentContainer";
+import LetterWrapper from "../common/LetterWrapper";
+import LetterContentContainer from "../common/LetterContentContainer";
+import StyledButton from "../common/StyledButton";
 import paper from "../../assets/leaf.jpg";
 import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
@@ -85,7 +86,7 @@ function NewLetter() {
   }
 
   return (
-    <LetterWrapper>
+    <>
       {modalMessage && (
         <Modal width="50rem" height="20rem">
           <p>{modalMessage}</p>
@@ -98,30 +99,33 @@ function NewLetter() {
           <button onClick={handleHomeButtonClick}>홈으로</button>
         </Modal>
       )}
-      <div className="container">
-        <PrevButton path={friendData.path} />
-        <LetterForm encType="multipart/form-data" onSubmit={handleLetterSubmit}>
-          <div className="button">
-            <button
+      <LetterWrapper>
+        <ButtonContainer>
+          <PrevButton path={friendData.path} />
+          <LetterForm
+            encType="multipart/form-data"
+            onSubmit={handleLetterSubmit}
+          >
+            <StyledButton
               type="button"
               onClick={(e) => {
                 e.preventDefault();
                 imageFile.current.click();
               }}
             >
-              편지지 선택하기
-            </button>
-            <button type="submit">편지 보내기</button>
-          </div>
-          <input
-            type="file"
-            ref={imageFile}
-            accept="image/jpg, image/png, image/jpeg"
-            name="letterWallPaper"
-            onChange={handleLetterPaperChange}
-            style={{ display: "none" }}
-          />
-        </LetterForm>
+              편지지 선택
+            </StyledButton>
+            <StyledButton type="submit">편지 보내기</StyledButton>
+            <input
+              type="file"
+              ref={imageFile}
+              accept="image/jpg, image/png, image/jpeg"
+              name="letterWallPaper"
+              onChange={handleLetterPaperChange}
+              style={{ display: "none" }}
+            />
+          </LetterForm>
+        </ButtonContainer>
         <LetterContentContainer>
           <img src={letterPaper} alt="wallpaper" />
           <textarea
@@ -130,15 +134,18 @@ function NewLetter() {
             required
           />
         </LetterContentContainer>
-      </div>
-    </LetterWrapper>
+      </LetterWrapper>
+    </>
   );
 }
 
 const LetterForm = styled.form`
-  .button {
-    width: 600px;
-  }
+  display: flex;
+`;
+
+const ButtonContainer = styled.div`
+  width: 600px;
+  display: flex;
 `;
 
 export default NewLetter;

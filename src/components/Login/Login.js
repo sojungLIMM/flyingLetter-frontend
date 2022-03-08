@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Icon } from "@iconify/react";
 
 import Modal from "../common/Modal";
@@ -41,120 +41,102 @@ function Login() {
           <p>{modalMessage}</p>
         </Modal>
       )}
-      <EarthContainer>
-        <div className="planet planet-earth">
-          <Header />
-          <div className="container">
-            <div className="loader">
-              <span>
-                <Icon icon="majesticons:airplane-flight-2-line" height="60" />
-              </span>
-            </div>
-            <div className="earth">
-              <LoginMain>
-                <form onSubmit={handleLoginButtonClick}>
-                  <div className="input-box">
-                    <input
-                      type="text"
-                      placeholder="아이디"
-                      value={email}
-                      onChange={(e) => handleEmailChange(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="input-box">
-                    <input
-                      type="password"
-                      placeholder="비밀번호"
-                      value={password}
-                      onChange={(e) => handlePasswordChange(e.target.value)}
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
-                  <div className="button-box">
-                    <button type="button" onClick={handleSignupButtonClick}>
-                      회원가입
-                    </button>
-                    <button type="submit">로그인</button>
-                  </div>
-                </form>
-              </LoginMain>
-            </div>
-          </div>
-        </div>
-      </EarthContainer>
+      <LoginWrapper>
+        <Header />
+        <LoginContainer>
+          <SpinningPlane>
+            <Icon icon="majesticons:airplane-flight-2-line" height="60" />
+          </SpinningPlane>
+          <EarthContainer>
+            <LoginForm onSubmit={handleLoginButtonClick}>
+              <LoginInputContainer className="input-box">
+                <input
+                  type="text"
+                  placeholder="아이디"
+                  value={email}
+                  onChange={(e) => handleEmailChange(e.target.value)}
+                  required
+                />
+              </LoginInputContainer>
+              <LoginInputContainer className="input-box">
+                <input
+                  type="password"
+                  placeholder="비밀번호"
+                  value={password}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                  autoComplete="off"
+                  required
+                />
+              </LoginInputContainer>
+              <LoginButtonContainer className="button-box">
+                <button type="button" onClick={handleSignupButtonClick}>
+                  회원가입
+                </button>
+                <button type="submit">로그인</button>
+              </LoginButtonContainer>
+            </LoginForm>
+          </EarthContainer>
+        </LoginContainer>
+      </LoginWrapper>
     </>
   );
 }
 
-const EarthContainer = styled.div`
+const rotate = keyframes`
+  0% {
+     transform: rotate(0deg);
+   }
+   100% {
+     transform: rotate(360deg);
+   }
+`;
+
+const LoginWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 80px 0;
+`;
+
+const LoginContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
-
-  .planet {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .planet .container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 80px 0;
-  }
-
-  .planet-earth {
-    position: relative;
-    width: 100%;
-    min-width: 400px;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    background: rgba(245, 244, 239, 0.7);
-  }
-
-  .planet-earth .loader {
-    position: relative;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    animation: animate 4s linear infinite;
-  }
-
-  @keyframes animate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .earth {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    background-image: url(${earthImage});
-    border-radius: 50%;
-    background-size: cover;
-  }
+  flex-direction: column;
+  margin: 40px 0;
 `;
 
-const LoginMain = styled.main`
+const EarthContainer = styled.div`
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background-image: url(${earthImage});
+  border-radius: 50%;
+  background-size: cover;
+`;
+
+const SpinningPlane = styled.div`
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  animation: ${rotate} 4s linear infinite;
+`;
+
+const LoginForm = styled.form`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 340px;
   height: 340px;
   border-radius: 50%;
+`;
 
-  .input-box input {
+const LoginInputContainer = styled.div`
+  input {
     width: 100%;
     border: none;
     outline: none;
@@ -167,13 +149,13 @@ const LoginMain = styled.main`
     font-size: 15px;
     font-weight: 200px;
   }
+`;
 
-  .button-box {
-    display: flex;
-    justify-content: space-evenly;
-  }
+const LoginButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
 
-  .button-box button {
+  button {
     width: 100px;
     background: rgb(240, 228, 198);
     border: none;

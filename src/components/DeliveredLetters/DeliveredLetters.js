@@ -63,13 +63,13 @@ function DeliveredLetters() {
   }
 
   return (
-    <ListWrapper>
+    <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}
-      <LettersWrapper className="container">
+      <LettersWrapper>
         <PrevButton path="/main" />
         {!letters.length && <p>{NO_DELIVERED_LETTER}</p>}
         {loading === "success" && (
@@ -94,11 +94,11 @@ function DeliveredLetters() {
           </LettersContainer>
         )}
       </LettersWrapper>
-    </ListWrapper>
+    </>
   );
 }
 
-const LettersWrapper = styled.div`
+const LettersWrapper = styled(ListWrapper)`
   p {
     line-height: 50vh;
     text-align: center;

@@ -53,13 +53,13 @@ function FriendList() {
   }
 
   return (
-    <ListWrapper>
+    <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}
-      <FriendListWrapper className="container">
+      <FriendListWrapper>
         <PrevButton path="/main" />
         <FriendListContainer>
           {friendList.map((user) => {
@@ -80,11 +80,11 @@ function FriendList() {
           })}
         </FriendListContainer>
       </FriendListWrapper>
-    </ListWrapper>
+    </>
   );
 }
 
-const FriendListWrapper = styled.div`
+const FriendListWrapper = styled(ListWrapper)`
   .button {
     width: 600px;
   }

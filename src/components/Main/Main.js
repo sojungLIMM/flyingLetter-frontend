@@ -55,13 +55,13 @@ function Main() {
   }
 
   return (
-    <MainWrapper>
+    <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}
-      <div className="container">
+      <MainWrapper>
         <ButtonContainer>
           <button>About</button>
           <button onClick={handleLogoutButtonClick}>logout</button>
@@ -106,29 +106,19 @@ function Main() {
             <button onClick={handleFriendSelectButtonClick}>선택하기</button>
           </div>
         </FriendListEntryContainer>
-      </div>
-    </MainWrapper>
+      </MainWrapper>
+    </>
   );
 }
 
 const MainWrapper = styled.div`
+  width: 100%;
   min-height: 100vh;
-  min-width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-
-  .container {
-    width: 100%;
-    min-height: 100vh;
-    overflow: scroll;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    background: rgba(245, 244, 239, 0.7);
-  }
+  overflow: scroll;
 `;
 
 const ButtonContainer = styled.div`
