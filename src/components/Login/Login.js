@@ -17,20 +17,20 @@ function Login() {
   const [password, setPassword] = useState("");
   const [modalMessage, setModalMessage] = useState(false);
 
-  function handleChangeEmail(value) {
+  function handleEmailChange(value) {
     setEmail(value);
   }
 
-  function handleChangePassword(value) {
+  function handlePasswordChange(value) {
     setPassword(value);
   }
 
-  function handleClickLoginButton(e) {
+  function handleLoginButtonClick(e) {
     e.preventDefault();
     dispatch(login({ navigate, setModalMessage, email, password }));
   }
 
-  function handleClickSignupButton() {
+  function handleSignupButtonClick() {
     navigate("/signup");
   }
 
@@ -52,13 +52,13 @@ function Login() {
             </div>
             <div className="earth">
               <LoginMain>
-                <form onSubmit={handleClickLoginButton}>
+                <form onSubmit={handleLoginButtonClick}>
                   <div className="input-box">
                     <input
                       type="text"
                       placeholder="아이디"
                       value={email}
-                      onChange={(e) => handleChangeEmail(e.target.value)}
+                      onChange={(e) => handleEmailChange(e.target.value)}
                       required
                     />
                   </div>
@@ -67,13 +67,13 @@ function Login() {
                       type="password"
                       placeholder="비밀번호"
                       value={password}
-                      onChange={(e) => handleChangePassword(e.target.value)}
+                      onChange={(e) => handlePasswordChange(e.target.value)}
                       autoComplete="off"
                       required
                     />
                   </div>
                   <div className="button-box">
-                    <button type="button" onClick={handleClickSignupButton}>
+                    <button type="button" onClick={handleSignupButtonClick}>
                       회원가입
                     </button>
                     <button type="submit">로그인</button>

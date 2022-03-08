@@ -60,9 +60,7 @@ function FriendList() {
         </Modal>
       )}
       <FriendListWrapper className="container">
-        <div className="button">
-          <PrevButton path="/main" />
-        </div>
+        <PrevButton path="/main" />
         <FriendListContainer>
           {friendList.map((user) => {
             const { _id, country, nickname, language, lat, lng, profileImage } =

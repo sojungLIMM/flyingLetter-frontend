@@ -17,14 +17,14 @@ function DeliveredLetterEntry({
 }) {
   const navigate = useNavigate();
 
-  function handleClickLetter() {
+  function handleLetterClick() {
     navigate(`/letters/delivered/${id}`, {
       state: { id, content, letterWallPaper, lat, lng },
     });
   }
 
   return (
-    <LetterContainer onClick={handleClickLetter}>
+    <LetterContainer onClick={handleLetterClick}>
       <Icon icon="fluent:mail-template-24-regular" color="#444" height="100" />
       <div className="info">
         <div>친구: {nickname}</div>

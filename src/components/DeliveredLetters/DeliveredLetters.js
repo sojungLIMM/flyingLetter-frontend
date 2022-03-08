@@ -70,9 +70,7 @@ function DeliveredLetters() {
         </Modal>
       )}
       <LettersWrapper className="container">
-        <div className="button">
-          <PrevButton path="/main" />
-        </div>
+        <PrevButton path="/main" />
         {!letters.length && <p>{NO_DELIVERED_LETTER}</p>}
         {loading === "success" && (
           <LettersContainer>
@@ -101,10 +99,6 @@ function DeliveredLetters() {
 }
 
 const LettersWrapper = styled.div`
-  .button {
-    width: 600px;
-  }
-
   p {
     line-height: 50vh;
     text-align: center;

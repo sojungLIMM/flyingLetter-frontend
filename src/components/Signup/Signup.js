@@ -35,7 +35,7 @@ function Signup() {
     country: "",
   });
 
-  async function handleClickEmailCheckButton(e) {
+  async function handleEmailCheckButtonClick(e) {
     e.preventDefault();
 
     if (!userInfo.email) {
@@ -103,7 +103,7 @@ function Signup() {
     }
   }
 
-  function handleChangeEmail(email) {
+  function handleEmailChange(email) {
     if (isUniqueNickname) {
       seIsUniqueEmail(false);
     }
@@ -114,21 +114,21 @@ function Signup() {
     }));
   }
 
-  function handleChangePassword(password) {
+  function handlePasswordChange(password) {
     setUserInfo((info) => ({
       ...info,
       password,
     }));
   }
 
-  function handleCheckPassword(password) {
+  function handlePasswordCheck(password) {
     setUserInfo((info) => ({
       ...info,
       confirmedPassword: password,
     }));
   }
 
-  function handleChangeNickname(nickname) {
+  function handleNicknameChange(nickname) {
     if (isUniqueEmail) {
       setIsUniqueNickname(false);
     }
@@ -139,14 +139,14 @@ function Signup() {
     }));
   }
 
-  function handleChangeLangauge(language) {
+  function handleLangaugeChange(language) {
     setUserInfo((info) => ({
       ...info,
       language,
     }));
   }
 
-  function handleChangeProfileImage(e) {
+  function handleProfileImageChange(e) {
     if (e.target.files[0]) {
       setPreviewImage(e.target.files[0]);
       setProfileImage(e.target.files[0]);
@@ -166,7 +166,7 @@ function Signup() {
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  async function handleClickCountrySelection() {
+  async function handleCountrySelectionClick() {
     if (location.loaded && location.error) {
       setModalMessage(location.error.message);
       return;
@@ -204,6 +204,7 @@ function Signup() {
       <div className="container">
         <img
           src={previewImage}
+          alt="profile image"
           className="preview-image"
           onClick={() => {
             imageFile.current.click();
@@ -216,7 +217,7 @@ function Signup() {
               type="file"
               accept="image/jpg, image/png, image/jpeg"
               name="profileImage"
-              onChange={handleChangeProfileImage}
+              onChange={handleProfileImageChange}
               ref={imageFile}
             />
           </div>
@@ -226,9 +227,9 @@ function Signup() {
               value={userInfo.email}
               placeholder="이메일"
               required
-              onChange={(e) => handleChangeEmail(e.target.value)}
+              onChange={(e) => handleEmailChange(e.target.value)}
             />
-            <button type="button" onClick={handleClickEmailCheckButton}>
+            <button type="button" onClick={handleEmailCheckButtonClick}>
               중복 확인
             </button>
           </div>
@@ -239,7 +240,7 @@ function Signup() {
               placeholder="비밀번호"
               required
               autoComplete="off"
-              onChange={(e) => handleChangePassword(e.target.value)}
+              onChange={(e) => handlePasswordChange(e.target.value)}
             />
           </div>
           <div className="input-box">
@@ -249,7 +250,7 @@ function Signup() {
               placeholder="비밀번호 확인"
               required
               autoComplete="off"
-              onChange={(e) => handleCheckPassword(e.target.value)}
+              onChange={(e) => handlePasswordCheck(e.target.value)}
             />
           </div>
           <div className="input-box">
@@ -258,7 +259,7 @@ function Signup() {
               value={userInfo.nickname}
               placeholder="닉네임"
               required
-              onChange={(e) => handleChangeNickname(e.target.value)}
+              onChange={(e) => handleNicknameChange(e.target.value)}
             />
             <button type="button" onClick={handleClickNicknameCheckButton}>
               중복 확인
@@ -270,7 +271,7 @@ function Signup() {
               value={userInfo.language}
               placeholder="사용 언어"
               required
-              onChange={(e) => handleChangeLangauge(e.target.value)}
+              onChange={(e) => handleLangaugeChange(e.target.value)}
             />
           </div>
           <div className="input-box">
@@ -278,7 +279,7 @@ function Signup() {
               type="text"
               value={userInfo.country}
               placeholder="국가 선택"
-              onClick={handleClickCountrySelection}
+              onClick={handleCountrySelectionClick}
               required
               readOnly
             />

@@ -9,13 +9,13 @@ import plane from "../../assets/Group.png";
 function InTransitLetterEntry({ id, arrivedAt, nickname, country, lat, lng }) {
   const navigate = useNavigate();
 
-  function handleClickLetter() {
+  function handleLetterLetter() {
     navigate(`/letters/inTransit/${id}`, { state: { arrivedAt, lat, lng } });
   }
 
   return (
-    <LetterContainer onClick={handleClickLetter}>
-      <img src={plane} />
+    <LetterContainer onClick={handleLetterLetter}>
+      <img src={plane} alt="plane and letter with heart" />
       <div className="info">
         <div>친구: {nickname}</div>
         <div>국가: {country}</div>
