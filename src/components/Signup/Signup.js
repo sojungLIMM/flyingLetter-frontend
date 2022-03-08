@@ -9,6 +9,7 @@ import {
   INVALID_PASSWORD,
 } from "../../constants";
 import Modal from "../common/Modal";
+import StyledButton from "../common/StyledButton";
 import { postSignup, checkSignupInfo } from "../../api/axios";
 import { getCurrentLocationData } from "../../api/openWeather";
 import useGeoLocation from "../../hooks/useGeoLocation";
@@ -195,13 +196,13 @@ function Signup() {
   }
 
   return (
-    <SignupWrapper>
+    <>
       {modalMessage && (
         <Modal onClick={setModalMessage} width="50rem" height="20rem">
           <p>{modalMessage}</p>
         </Modal>
       )}
-      <div className="container">
+      <SignupWrapper>
         <img
           src={previewImage}
           alt="profile image"
@@ -229,9 +230,9 @@ function Signup() {
               required
               onChange={(e) => handleEmailChange(e.target.value)}
             />
-            <button type="button" onClick={handleEmailCheckButtonClick}>
+            <StyledButton type="button" onClick={handleEmailCheckButtonClick}>
               중복 확인
-            </button>
+            </StyledButton>
           </div>
           <div className="input-box">
             <input
@@ -261,9 +262,12 @@ function Signup() {
               required
               onChange={(e) => handleNicknameChange(e.target.value)}
             />
-            <button type="button" onClick={handleClickNicknameCheckButton}>
+            <StyledButton
+              type="button"
+              onClick={handleClickNicknameCheckButton}
+            >
               중복 확인
-            </button>
+            </StyledButton>
           </div>
           <div className="input-box">
             <input
@@ -285,33 +289,23 @@ function Signup() {
             />
           </div>
           <div className="input-box">
-            <button type="submit">회원가입</button>
+            <StyledButton type="submit">회원가입</StyledButton>
           </div>
         </form>
-      </div>
-    </SignupWrapper>
+      </SignupWrapper>
+    </>
   );
 }
 
 const SignupWrapper = styled.div`
+  width: 100%;
+  min-width: 400px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
-
-  .container {
-    position: relative;
-    width: 100%;
-    min-width: 400px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(245, 244, 239, 0.7);
-  }
+  flex-direction: column;
+  align-items: center;
 
   .preview-image {
     object-fit: cover;
@@ -338,21 +332,6 @@ const SignupWrapper = styled.div`
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     font-size: 15px;
     font-weight: 200px;
-  }
-
-  .input-box button {
-    width: 90px;
-    background: rgb(240, 228, 198);
-    border: none;
-    outline: none;
-    margin: 10px 0;
-    padding: 8px 20px;
-    border-radius: 35px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-right: 2px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    font-size: 12px;
-    cursor: pointer;
   }
 `;
 

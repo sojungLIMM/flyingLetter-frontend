@@ -63,13 +63,13 @@ function InTransitLetters() {
   }
 
   return (
-    <ListWrapper>
+    <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}
-      <LettersWrapper className="container">
+      <LettersWrapper>
         <PrevButton />
         {!letters.length && <p>{NO_FLYING_LETTER}</p>}
         {loading === "success" && (
@@ -92,11 +92,11 @@ function InTransitLetters() {
           </LettersContainer>
         )}
       </LettersWrapper>
-    </ListWrapper>
+    </>
   );
 }
 
-const LettersWrapper = styled.div`
+const LettersWrapper = styled(ListWrapper)`
   p {
     line-height: 50vh;
     text-align: center;
