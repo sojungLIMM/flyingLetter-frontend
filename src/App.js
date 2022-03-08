@@ -13,6 +13,7 @@ import InTransitLetters from "./components/InTransitLetters/InTransitLetters";
 import InTransitLetterDetail from "./components/InTransitLetters/InTransitLetterDetail";
 import FriendList from "./components/FriendList/FriendList";
 import NewLetter from "./components/NewLetter/NewLetter";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { ACCESS_TOKEN } from "./constants";
 import { getLoginUserByToken } from "./features/userSlice";
 
@@ -44,20 +45,22 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/letters/delivered" element={<DeliveredLetters />} />
-        <Route
-          path="/letters/delivered/:letterId"
-          element={<DeliveredLetterDetail />}
-        />
-        <Route path="/letters/inTransit" element={<InTransitLetters />} />
-        <Route
-          path="/letters/inTransit/:letterId"
-          element={<InTransitLetterDetail />}
-        />
-        <Route path="/friendList" element={<FriendList />} />
-        <Route path="/sendLetter/:userId" element={<NewLetter />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/letters/delivered" element={<DeliveredLetters />} />
+          <Route
+            path="/letters/delivered/:letterId"
+            element={<DeliveredLetterDetail />}
+          />
+          <Route path="/letters/inTransit" element={<InTransitLetters />} />
+          <Route
+            path="/letters/inTransit/:letterId"
+            element={<InTransitLetterDetail />}
+          />
+          <Route path="/friendList" element={<FriendList />} />
+          <Route path="/sendLetter/:userId" element={<NewLetter />} />
+        </Route>
       </Routes>
     </Wrapper>
   );
