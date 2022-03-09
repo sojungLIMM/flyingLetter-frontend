@@ -196,10 +196,12 @@ const ProfileContainer = styled.div`
   }
 
   .info div {
+    width: 280px;
     border-radius: 20px;
     border: 3px solid #fff;
     padding: 7px 20px;
     background: rgba(238, 238, 238, 1);
+    line-height: 20px;
   }
 
   .info span {
