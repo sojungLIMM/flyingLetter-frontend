@@ -78,7 +78,7 @@ function Main() {
           </div>
         </LetterInfoContainer>
         <ProfileContainer>
-          <h3>-- My Profile --</h3>
+          <h3>ㅡ My Profile ㅡ</h3>
           <div className="info-container">
             <img src={profileImage} alt="profile image" />
             <div className="info">
@@ -98,12 +98,12 @@ function Main() {
           </div>
         </ProfileContainer>
         <FriendListEntryContainer>
-          <h3>-- friends --</h3>
+          <h3>ㅡ friends ㅡ</h3>
           <div className="content">
             <p>세계 곳곳의 새로운 펜팔 친구에게</p>
             <p>편지를 보내보세요</p>
-            <img src={wirttingImage} alt="typewriter image" />
             <button onClick={handleFriendSelectButtonClick}>선택하기</button>
+            <img src={wirttingImage} alt="typewriter image" />
           </div>
         </FriendListEntryContainer>
       </MainWrapper>
@@ -216,17 +216,19 @@ const FriendListEntryContainer = styled.div`
 
   .content {
     width: 280px;
-    height: 320px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+    padding: 20px;
     background: rgba(240, 228, 198, 1);
+    border-radius: 11px;
     font-size: 1.4rem;
   }
 
   button {
-    margin: 3vh 0;
+    margin: 30px 0;
     padding: 8px 18px;
     background: #66b28a;
     border: none;

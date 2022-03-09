@@ -14,6 +14,7 @@ function DeliveredLetterEntry({
   country,
   lat,
   lng,
+  targetRef,
 }) {
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ function DeliveredLetterEntry({
   }
 
   return (
-    <LetterContainer onClick={handleLetterClick}>
+    <LetterContainer onClick={handleLetterClick} ref={targetRef}>
       <Icon icon="fluent:mail-template-24-regular" color="#444" height="100" />
       <div className="info">
         <div>친구: {nickname}</div>
@@ -64,6 +65,10 @@ DeliveredLetterEntry.propTypes = {
   country: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
+  targetRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 export default DeliveredLetterEntry;

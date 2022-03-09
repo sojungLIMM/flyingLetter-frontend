@@ -6,7 +6,15 @@ import { formatDistanceToNow } from "date-fns";
 
 import plane from "../../assets/Group.png";
 
-function InTransitLetterEntry({ id, arrivedAt, nickname, country, lat, lng }) {
+function InTransitLetterEntry({
+  id,
+  arrivedAt,
+  nickname,
+  country,
+  lat,
+  lng,
+  targetRef,
+}) {
   const navigate = useNavigate();
 
   function handleLetterLetter() {
@@ -14,7 +22,7 @@ function InTransitLetterEntry({ id, arrivedAt, nickname, country, lat, lng }) {
   }
 
   return (
-    <LetterContainer onClick={handleLetterLetter}>
+    <LetterContainer onClick={handleLetterLetter} ref={targetRef}>
       <img src={plane} alt="plane and letter with heart" />
       <div className="info">
         <div>친구: {nickname}</div>
@@ -53,6 +61,10 @@ InTransitLetterEntry.propTypes = {
   arrivedAt: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
+  targetRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 export default InTransitLetterEntry;
