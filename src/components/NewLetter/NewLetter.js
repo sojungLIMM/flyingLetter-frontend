@@ -12,7 +12,7 @@ import StyledButton from "../common/StyledButton";
 import paper from "../../assets/leaf.jpg";
 import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
-import { KM_PER_SECOND } from "../../constants";
+import { KM_PER_SECOND, MAX_FILE_SIZE } from "../../constants";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
@@ -28,6 +28,11 @@ function NewLetter() {
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleLetterPaperChange(e) {
+    if (e.target.files[0].size > 1 * 1024 * 1024) {
+      setModalMessage(MAX_FILE_SIZE);
+      return;
+    }
+
     if (e.target.files[0]) {
       setLetterPaper(e.target.files[0]);
       setNewLetterPaper(e.target.files[0]);

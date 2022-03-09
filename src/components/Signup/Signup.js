@@ -14,6 +14,13 @@ import { postSignup, checkSignupInfo } from "../../api/axios";
 import { getCurrentLocationData } from "../../api/openWeather";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import countryNames from "../../assets/countryCode.json";
+import {
+  MAX_FILE_SIZE,
+  NEED_EMAIL,
+  NEED_NICKNAME,
+  NEED_UNIQUE_CHECK,
+  LOADING_GET_LOCATION,
+} from "../../constants";
 
 function Signup() {
   const imageFile = useRef();
@@ -40,7 +47,7 @@ function Signup() {
     e.preventDefault();
 
     if (!userInfo.email) {
-      setModalMessage("아이디를 입력하세요.");
+      setModalMessage(NEED_EMAIL);
       return;
     }
 
@@ -58,7 +65,7 @@ function Signup() {
     e.preventDefault();
 
     if (!userInfo.nickname) {
-      setModalMessage("닉네임을 입력하세요.");
+      setModalMessage(NEED_NICKNAME);
       return;
     }
 
@@ -81,7 +88,7 @@ function Signup() {
     }
 
     if (!isUniqueEmail || !isUniqueNickname) {
-      setModalMessage("중복 체크를 해주세요.");
+      setModalMessage(NEED_UNIQUE_CHECK);
       return;
     }
 
@@ -148,6 +155,11 @@ function Signup() {
   }
 
   function handleProfileImageChange(e) {
+    if (e.target.files[0].size > 1 * 1024 * 1024) {
+      setModalMessage(MAX_FILE_SIZE);
+      return;
+    }
+
     if (e.target.files[0]) {
       setPreviewImage(e.target.files[0]);
       setProfileImage(e.target.files[0]);
@@ -174,7 +186,7 @@ function Signup() {
     }
 
     if (!location.loaded) {
-      setModalMessage("위치 가져오는 중 입니다. 잠시만 기다려 주세요.");
+      setModalMessage(LOADING_GET_LOCATION);
       return;
     }
 
