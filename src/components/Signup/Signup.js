@@ -63,6 +63,7 @@ function Signup() {
       seIsUniqueEmail(true);
       setModalMessage(VALID_EMAIL);
     } catch (error) {
+      console.log(error);
       setModalMessage(error.response.data.message);
     }
   }
