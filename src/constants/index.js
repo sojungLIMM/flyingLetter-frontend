@@ -8,6 +8,7 @@ export const OPEN_WEATHER_API =
 export const VALID_EMAIL = "사용 가능한 이메일입니다.";
 export const VALID_NICKNAME = "사용 가능한 닉네임입니다.";
 export const INVALID_PASSWORD = "비밀번호가 일치하지 않습니다.";
+export const INVALID_EMAIL = "이메일 주소에 @를 포함해주세요.";
 
 export const NO_DELIVERED_LETTER = "아직 도착한 편지가 없습니다.";
 export const NO_FLYING_LETTER = "배송 중인 편지가 없습니다.";

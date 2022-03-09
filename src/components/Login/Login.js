@@ -51,8 +51,8 @@ function Login() {
             <LoginForm onSubmit={handleLoginButtonClick}>
               <LoginInputContainer className="input-box">
                 <input
-                  type="text"
-                  placeholder="아이디"
+                  type="email"
+                  placeholder="이메일"
                   value={email}
                   onChange={(e) => handleEmailChange(e.target.value)}
                   required
