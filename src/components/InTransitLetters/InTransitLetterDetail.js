@@ -10,6 +10,7 @@ import WeatherBackground from "../WeatherBackground/WeatherBackground";
 import FlyingMarker from "../FlyingMarker/FlyingMarker";
 import PrevButton from "../common/PrevButton";
 import Modal from "../common/Modal";
+import StyledButton from "../common/StyledButton";
 import raindropsImg from "../../assets/raindrops.png";
 import mailBoxImg from "../../assets/mailbox.png";
 import lightningImg from "../../assets/lightining.png";
@@ -52,6 +53,8 @@ function InTransitLetterDetail() {
   }, [map]);
 
   useEffect(() => {
+    getCurrentWeatherInfo();
+
     let timerId = setTimeout(function getcurrentlocationInfo() {
       const totalDistance = getDistance(
         [user.lat, user.lng],
@@ -85,48 +88,41 @@ function InTransitLetterDetail() {
     return () => clearTimeout(timerId);
   }, []);
 
-  useEffect(() => {
-    let timerId;
+  async function getCurrentWeatherInfo() {
+    try {
+      const totalDistance = getDistance(
+        [user.lat, user.lng],
+        [friend.lat, friend.lng]
+      );
+      const totalSeconds = totalDistance / KM_PER_SECOND;
+      const remainingSeconds = differenceInSeconds(
+        new Date(friend.arrivedAt),
+        new Date()
+      );
+      const elapsedSeconds = totalSeconds - remainingSeconds;
+      const currentCoordinate = getCoorordinate(
+        [friend.lat, friend.lng],
+        [user.lat, user.lng],
+        totalSeconds,
+        elapsedSeconds
+      );
 
-    async function getCurrentWeatherInfo() {
-      try {
-        const totalDistance = getDistance(
-          [user.lat, user.lng],
-          [friend.lat, friend.lng]
-        );
-        const totalSeconds = totalDistance / KM_PER_SECOND;
-        const remainingSeconds = differenceInSeconds(
-          new Date(friend.arrivedAt),
-          new Date()
-        );
-        const elapsedSeconds = totalSeconds - remainingSeconds;
-        const currentCoordinate = getCoorordinate(
-          [friend.lat, friend.lng],
-          [user.lat, user.lng],
-          totalSeconds,
-          elapsedSeconds
-        );
+      const res = await getCurrentLocationData(...currentCoordinate);
+      const weatherType = getWeatherType(res.weather[0].id);
 
-        const res = await getCurrentLocationData(...currentCoordinate);
-        const weatherType = getWeatherType(res.weather[0].id);
+      console.log("res", res);
 
-        setFlyingMailInfo((prev) => ({
-          ...prev,
-          currentLocation: `${countryNames[res.sys.country]} ${res.name}`,
-          weather: res.weather[0].description,
-          weatherType,
-        }));
-        setNewcoor(currentCoordinate);
-      } catch (error) {
-        setErrorMessage(error.response.data.message);
-      } finally {
-        timerId = setTimeout(getCurrentWeatherInfo, 1000 * 60 * 60);
-      }
+      setFlyingMailInfo((prev) => ({
+        ...prev,
+        currentLocation: `${countryNames[res.sys.country]} ${res.name}`,
+        weather: res.weather[0].description,
+        weatherType,
+      }));
+      setNewcoor(currentCoordinate);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
     }
-    setTimeout(getCurrentWeatherInfo, 0);
-
-    return () => clearTimeout(timerId);
-  }, []);
+  }
 
   return (
     <>
@@ -203,6 +199,9 @@ function InTransitLetterDetail() {
               <div className="location">
                 <div>현재 위치: {flyingMailInfo.currentLocation}</div>
                 <div>날씨: {flyingMailInfo.weather}</div>
+                <StyledButton type="button" onClick={getCurrentWeatherInfo}>
+                  새로고침
+                </StyledButton>
               </div>
             </InformationWrapper>
           </MapWrapper>
