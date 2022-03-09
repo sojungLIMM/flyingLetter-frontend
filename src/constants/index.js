@@ -13,3 +13,10 @@ export const NO_DELIVERED_LETTER = "아직 도착한 편지가 없습니다.";
 export const NO_FLYING_LETTER = "배송 중인 편지가 없습니다.";
 
 export const KM_PER_SECOND = 0.222;
+
+export const MAX_FILE_SIZE = "최대 파일 크기는 1mb입니다.";
+export const NEED_EMAIL = "이메일을 입력하세요.";
+export const NEED_NICKNAME = "닉네임을 입력하세요.";
+export const NEED_UNIQUE_CHECK = "중복 체크를 해주세요.";
+export const LOADING_GET_LOCATION =
+  "위치 가져오는 중 입니다. 잠시만 기다려 주세요.";
