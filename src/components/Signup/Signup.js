@@ -20,6 +20,7 @@ import {
   NEED_NICKNAME,
   NEED_UNIQUE_CHECK,
   LOADING_GET_LOCATION,
+  INVALID_EMAIL,
 } from "../../constants";
 
 function Signup() {
@@ -48,6 +49,11 @@ function Signup() {
 
     if (!userInfo.email) {
       setModalMessage(NEED_EMAIL);
+      return;
+    }
+
+    if (!userInfo.email.includes("@")) {
+      setModalMessage(INVALID_EMAIL);
       return;
     }
 
@@ -236,7 +242,7 @@ function Signup() {
           </div>
           <div className="input-box">
             <input
-              type="text"
+              type="email"
               value={userInfo.email}
               placeholder="이메일"
               required
