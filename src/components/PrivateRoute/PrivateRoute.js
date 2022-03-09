@@ -4,14 +4,17 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Modal from "../common/Modal";
+import LoadingSpinner from "../common/LoadingSpinner";
+import { ACCESS_TOKEN } from "../../constants";
+
 function PrivateRoute() {
-  const isLoggedIn = useSelector(({ user }) => user.isLoggedIn);
+  const { isLoggedIn, status } = useSelector((state) => state.user);
 
   return (
     <>
-      {isLoggedIn ? (
-        <Outlet />
-      ) : (
+      {isLoggedIn && <Outlet />}
+      {!isLoggedIn && status === "pending" && <LoadingSpinner />}
+      {!isLoggedIn && !localStorage.getItem(ACCESS_TOKEN) && (
         <Modal width="50rem" height="20rem">
           <MessageWrapper>
             <div>로그인이 필요합니다.</div>

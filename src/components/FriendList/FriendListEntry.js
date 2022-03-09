@@ -11,6 +11,7 @@ function FriendListEntry({
   nickname,
   country,
   language,
+  targetRef,
 }) {
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ function FriendListEntry({
   }
 
   return (
-    <FriendContainer>
+    <FriendContainer ref={targetRef}>
       <img src={profileImage} alt="profile image" />
       <div className="nickname">{nickname}</div>
       <div>{country}</div>
@@ -62,10 +63,12 @@ const FriendContainer = styled.div`
   }
 
   button {
+    display: flex;
     border-radius: 20px;
     border: 3px solid #fff;
-    padding: 3px 20px;
+    padding: 5px 20px;
     background: rgba(238, 238, 238, 0.79);
+    cursor: pointer;
   }
 `;
 
@@ -76,6 +79,10 @@ FriendListEntry.propTypes = {
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
+  targetRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 export default FriendListEntry;
