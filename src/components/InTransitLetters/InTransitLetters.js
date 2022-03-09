@@ -20,8 +20,8 @@ function InTransitLetters() {
   const userId = useSelector(({ user }) => user.data._id);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [isNext, setIsNext] = useState(true);
   const [page, setPage] = useState(1);
+  const [isNext, setIsNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [letters, setLetters] = useState([]);
 
@@ -75,8 +75,9 @@ function InTransitLetters() {
         <PrevButton />
         {!isLoading && !letters.length && <p>{NO_FLYING_LETTER}</p>}
         <LettersContainer>
-          {letters.map((letter) => {
+          {letters.map((letter, index) => {
             const { _id, arrivedAt, from } = letter;
+            const lastElement = index === letters.length - 1;
 
             return (
               <InTransitLetterEntry
@@ -87,6 +88,7 @@ function InTransitLetters() {
                 country={from.country}
                 lat={from.lat}
                 lng={from.lng}
+                targetRef={lastElement ? targetObserver : null}
               />
             );
           })}
