@@ -79,10 +79,7 @@ FriendListEntry.propTypes = {
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
-  targetRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
+  targetRef: PropTypes.func,
 };
 
 export default FriendListEntry;

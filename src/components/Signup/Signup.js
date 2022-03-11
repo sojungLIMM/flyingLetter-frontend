@@ -198,15 +198,12 @@ function Signup() {
     }
 
     try {
-      const res = await getCurrentLocationData(
-        location.coordinates.lat,
-        location.coordinates.lng
-      );
+      const res = await getCurrentLocationData(location.lat, location.lng);
 
       setUserInfo((info) => ({
         ...info,
-        lat: location.coordinates.lat,
-        lng: location.coordinates.lng,
+        lat: location.lat,
+        lng: location.lng,
         country: countryNames[res.sys.country],
       }));
     } catch (error) {

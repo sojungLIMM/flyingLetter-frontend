@@ -94,7 +94,7 @@ export async function sendLetter(formData, userId) {
   return res;
 }
 
-export async function getDeliveredLetters(userId, params) {
+export async function getLetters(userId, params) {
   const res = await axios.get(
     `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/letters/to`,
     {

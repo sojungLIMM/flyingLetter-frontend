@@ -9,14 +9,16 @@ import Modal from "../common/Modal";
 import LetterWrapper from "../common/LetterWrapper";
 import LetterContentContainer from "../common/LetterContentContainer";
 import StyledButton from "../common/StyledButton";
-import paper from "../../assets/leaf.jpg";
 import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
+import { getCurrentLocationData } from "../../api/openWeather";
 import { KM_PER_SECOND, MAX_FILE_SIZE } from "../../constants";
+import paper from "../../assets/leaf.jpg";
+import countryNames from "../../assets/countryCode.json";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
-  const friendData = useLocation().state;
+  const { state } = useLocation();
   const friendId = useParams().userId;
   const navigate = useNavigate();
   const imageFile = useRef();
@@ -54,23 +56,42 @@ function NewLetter() {
 
   async function handleLetterSubmit(e) {
     e.preventDefault();
-    const [lat2, lng2] = friendData.coor;
-
-    const distance = getDistance([lat, lng], [lat2, lng2]);
-    const totalSeconds = distance / KM_PER_SECOND;
-    const arrivedAt = addSeconds(new Date(), totalSeconds);
-
-    const formData = new FormData();
-
-    formData.append("from", _id);
-    formData.append("to", friendId);
-    formData.append("content", content);
-    formData.append("arrivedAt", arrivedAt);
-    formData.append("letterWallPaper", newLetterPaper);
 
     try {
-      await sendLetter(formData, _id);
-      setModalMessage("편지 배송을 시작합니다.");
+      const formData = new FormData();
+
+      if (state.leaveLetter) {
+        const res = await getCurrentLocationData(lat, lng);
+
+        formData.append("country", countryNames[res.sys.country]);
+        formData.append("lat", state.lat);
+        formData.append("lng", state.lng);
+        formData.append("from", _id);
+        formData.append("content", content);
+        formData.append("letterWallPaper", newLetterPaper);
+
+        await sendLetter(formData, _id);
+        setModalMessage("편지를 현재 위치에 ..");
+      } else {
+        const [lat2, lng2] = state.coor;
+
+        const distance = getDistance([lat, lng], [lat2, lng2]);
+        const totalSeconds = distance / KM_PER_SECOND;
+        const arrivedAt = addSeconds(new Date(), totalSeconds);
+
+        formData.append("to", friendId);
+        formData.append("arrivedAt", arrivedAt);
+        formData.append("from", _id);
+        formData.append("content", content);
+        formData.append("letterWallPaper", newLetterPaper);
+
+        if (state.letterId) {
+          formData.append("letterId", state.letterId);
+        }
+
+        await sendLetter(formData, _id);
+        setModalMessage("편지 배송을 시작합니다.");
+      }
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
@@ -81,13 +102,14 @@ function NewLetter() {
   }
 
   function handleOkButtonClick() {
-    navigate(friendData.path);
-    setModalMessage(false);
-  }
+    if (state.leaveLetter) {
+      navigate("/main");
+      setModalMessage(false);
+      return;
+    }
 
-  function handleHomeButtonClick() {
-    navigate("/");
-    setErrorMessage(false);
+    navigate(state.path);
+    setModalMessage(false);
   }
 
   return (
@@ -99,14 +121,13 @@ function NewLetter() {
         </Modal>
       )}
       {errorMessage && (
-        <Modal width="50rem" height="20rem">
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
-          <button onClick={handleHomeButtonClick}>홈으로</button>
         </Modal>
       )}
       <LetterWrapper>
         <ButtonContainer>
-          <PrevButton path={friendData.path} />
+          <PrevButton path={state.leaveLetter ? "/main" : state.path} />
           <LetterForm
             encType="multipart/form-data"
             onSubmit={handleLetterSubmit}

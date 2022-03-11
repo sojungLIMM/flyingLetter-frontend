@@ -6,12 +6,13 @@ import { Icon } from "@iconify/react";
 import { parseISO, format } from "date-fns";
 
 function DeliveredLetterEntry({
-  id,
+  letterId,
   content,
   letterWallPaper,
   arrivedAt,
   nickname,
   country,
+  userId,
   lat,
   lng,
   targetRef,
@@ -19,8 +20,8 @@ function DeliveredLetterEntry({
   const navigate = useNavigate();
 
   function handleLetterClick() {
-    navigate(`/letters/delivered/${id}`, {
-      state: { id, content, letterWallPaper, lat, lng },
+    navigate(`/letters/delivered/${letterId}`, {
+      state: { userId, content, letterWallPaper, lat, lng },
     });
   }
 
@@ -57,18 +58,16 @@ const LetterContainer = styled.div`
 `;
 
 DeliveredLetterEntry.propTypes = {
-  id: PropTypes.string.isRequired,
+  letterId: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   letterWallPaper: PropTypes.string,
   arrivedAt: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
-  targetRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
+  targetRef: PropTypes.func,
 };
 
 export default DeliveredLetterEntry;
