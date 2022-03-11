@@ -174,7 +174,7 @@ function InTransitLetterDetail() {
                       : ""
                   }
                   ref={polyRef}
-                  pathOptions={{ color: "red" }}
+                  pathOptions={{ color: "#fe4c40" }}
                   positions={[[user.lat, user.lng], newCoor]}
                 />
               )}
@@ -186,7 +186,7 @@ function InTransitLetterDetail() {
                       : ""
                   }
                   ref={polyRef}
-                  pathOptions={{ color: "green" }}
+                  pathOptions={{ color: "#fdd7e4" }}
                   positions={[newCoor, [friend.lat, friend.lng]]}
                 />
               )}

@@ -10,6 +10,34 @@ function getCoorordinate(origin, destination, totalNumber, elapsedNumber) {
   const singleLatMove = totalLat / totalNumber;
   const singleLngMove = totalLng / totalNumber;
 
+  if (totalLat === 0) {
+    let currentLng;
+
+    if (lng1 > lng2) {
+      currentLng = lng1 - singleLngMove * elapsedNumber;
+    }
+
+    if (lng1 < lng2) {
+      currentLng = lng1 + singleLngMove * elapsedNumber;
+    }
+
+    return [lat1, parseFloat(currentLng)];
+  }
+
+  if (totalLng === 0) {
+    let currentLat;
+
+    if (lat1 > lat2) {
+      currentLat = lat1 - singleLatMove * elapsedNumber;
+    }
+
+    if (lat1 < lat2) {
+      currentLat = lat1 + singleLatMove * elapsedNumber;
+    }
+
+    return [parseFloat(currentLat), lng1];
+  }
+
   if (lat1 > lat2 && lng1 < lng2) {
     const currentLat = lat1 - singleLatMove * elapsedNumber;
     const currentLng = lng1 + singleLngMove * elapsedNumber;
