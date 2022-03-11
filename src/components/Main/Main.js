@@ -246,7 +246,7 @@ function Main() {
               <CircleMarker
                 className="user-position"
                 center={[location.lat, location.lng]}
-                radius={10}
+                radius={16.5}
               />
             </MapContainer>
           )}

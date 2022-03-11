@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Marker, MapContainer, TileLayer, Polyline } from "react-leaflet";
 import { Icon } from "leaflet";
 import { differenceInSeconds } from "date-fns";
@@ -28,6 +28,7 @@ const postBox = new Icon({
 });
 
 function InTransitLetterDetail() {
+  const navigate = useNavigate();
   const polyRef = useRef();
   const user = useSelector(({ user }) => user.data);
   const loading = useSelector(({ user }) => user.status);
@@ -66,6 +67,13 @@ function InTransitLetterDetail() {
         new Date()
       );
       const elapsedSeconds = totalSeconds - remainingSeconds;
+
+      if (remainingSeconds < 0) {
+        clearTimeout(timerId);
+        navigate("/main");
+        return;
+      }
+
       const currentCoordinate = getCoorordinate(
         [friend.lat, friend.lng],
         [user.lat, user.lng],
@@ -211,6 +219,15 @@ function InTransitLetterDetail() {
   );
 }
 
+const rainDrops = keyframes`
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 150px 400px;
+  }
+`;
+
 const swing = keyframes`
   15% {
     transform: translateX(5px) rotate(10deg);
@@ -314,6 +331,39 @@ const lightning = keyframes`
   }
 `;
 
+const blurry = keyframes`
+  0% {
+    filter: blur(0px);
+  }
+  50% {
+     filter: blur(10px);
+   }
+  100% {
+    filter: blur(0px);
+  }
+`;
+
+const roll = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: translateY(-20%) rotate(-70deg)
+  }
+  40% {
+    transform: translateY(+14%) rotate(-140deg)
+  }
+  60% {
+    transform: translateY(-50%) rotate(-210deg)
+  }
+  80% {
+    transform: translateY(+14%) rotate(-280deg)
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+`;
+
 const MapWrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -322,7 +372,10 @@ const MapWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   animation: ${(props) =>
-    props.type === "Rain" && "rainDrops 1s linear infinite"};
+    props.type === "Rain" &&
+    css`
+      ${rainDrops} 1s linear infinite
+    `};
   background-image: ${(props) =>
     props.type === "Rain" && `url(${raindropsImg})`};
 
@@ -347,6 +400,18 @@ const MapWrapper = styled.div`
 
   .snow img {
     animation: ${swing} 1s ease-out infinite;
+    width: 35px;
+    height: 35px;
+  }
+
+  .fog img {
+    animation: ${blurry} 1s ease-out infinite;
+    width: 35px;
+    height: 35px;
+  }
+
+  .sand img {
+    animation: ${roll} 1s linear infinite;
     width: 35px;
     height: 35px;
   }

@@ -21,7 +21,7 @@ function getWeatherType(typeId) {
       }
 
       if (currentWeather.startsWith("7")) {
-        currentWeather = "Tornado";
+        currentWeather = "Fog";
         break;
       }
 

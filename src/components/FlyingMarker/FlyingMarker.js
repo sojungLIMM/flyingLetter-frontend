@@ -6,9 +6,22 @@ import PropTypes from "prop-types";
 import pinkLetter from "../../assets/pinkLetter.png";
 import snowboarder from "../../assets/snowboarder.png";
 import umbrella from "../../assets/umbrella.png";
+import mask from "../../assets/mask.png";
 
 const letterMarker = new Icon({
   iconUrl: pinkLetter,
+  iconSize: [35, 35],
+});
+
+const fogMarker = new divIcon({
+  className: "icon-css",
+  html: `<div class="fog"><img src=${pinkLetter} /></div>`,
+  iconSize: [35, 35],
+});
+
+const sandMarker = new divIcon({
+  className: "icon-css",
+  html: `<div class="sand"><img src=${mask} /></div>`,
   iconSize: [35, 35],
 });
 
@@ -49,11 +62,14 @@ function FlyingMarker({ type, position }) {
     case "Snow":
       icon = snowBoarderMarker;
       break;
-    case "ThunderStorm":
-      icon = clearMarker;
-      break;
     case "Rain":
       icon = rainMarker;
+      break;
+    case "Fog":
+      icon = fogMarker;
+      break;
+    case "Sand":
+      icon = sandMarker;
       break;
     default:
       icon = letterMarker;

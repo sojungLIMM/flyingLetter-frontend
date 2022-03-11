@@ -79,6 +79,10 @@ function Login() {
             </LoginForm>
           </EarthContainer>
         </LoginContainer>
+        <SourceContainer>
+          <p>created by YuKai Du</p>
+          <p>title: The Environmental Cost of a day on Earth</p>
+        </SourceContainer>
       </LoginWrapper>
     </>
   );
@@ -172,6 +176,11 @@ const LoginButtonContainer = styled.div`
     font-weight: bold;
     cursor: pointer;
   }
+`;
+
+const SourceContainer = styled.div`
+  margin: 5rem 0;
+  color: #bbb;
 `;
 
 export default Login;
