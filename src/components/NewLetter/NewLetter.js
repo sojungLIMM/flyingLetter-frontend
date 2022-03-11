@@ -11,10 +11,8 @@ import LetterContentContainer from "../common/LetterContentContainer";
 import StyledButton from "../common/StyledButton";
 import getDistance from "../../utils/getDistance";
 import { sendLetter } from "../../api/axios";
-import { getCurrentLocationData } from "../../api/openWeather";
 import { KM_PER_SECOND, MAX_FILE_SIZE } from "../../constants";
 import paper from "../../assets/leaf.jpg";
-import countryNames from "../../assets/countryCode.json";
 
 function NewLetter() {
   const { _id, lat, lng } = useSelector(({ user }) => user.data);
@@ -61,9 +59,6 @@ function NewLetter() {
       const formData = new FormData();
 
       if (state.leaveLetter) {
-        const res = await getCurrentLocationData(lat, lng);
-
-        formData.append("country", countryNames[res.sys.country]);
         formData.append("lat", state.lat);
         formData.append("lng", state.lng);
         formData.append("from", _id);
@@ -72,10 +67,15 @@ function NewLetter() {
 
         await sendLetter(formData, _id);
         setModalMessage("편지를 현재 위치에 ..");
-      } else {
-        const [lat2, lng2] = state.coor;
 
-        const distance = getDistance([lat, lng], [lat2, lng2]);
+        return;
+      }
+
+      if (state.letterId) {
+        const distance = getDistance(
+          [state.fromLat, state.fromLng],
+          [state.toLat, state.toLng]
+        );
         const totalSeconds = distance / KM_PER_SECOND;
         const arrivedAt = addSeconds(new Date(), totalSeconds);
 
@@ -84,14 +84,28 @@ function NewLetter() {
         formData.append("from", _id);
         formData.append("content", content);
         formData.append("letterWallPaper", newLetterPaper);
-
-        if (state.letterId) {
-          formData.append("letterId", state.letterId);
-        }
+        formData.append("letterId", state.letterId);
+        formData.append("newFromLat", state.fromLat);
+        formData.append("newFromLng", state.fromLng);
 
         await sendLetter(formData, _id);
         setModalMessage("편지 배송을 시작합니다.");
+
+        return;
       }
+
+      const distance = getDistance([lat, lng], [state.toLat, state.toLng]);
+      const totalSeconds = distance / KM_PER_SECOND;
+      const arrivedAt = addSeconds(new Date(), totalSeconds);
+
+      formData.append("to", friendId);
+      formData.append("arrivedAt", arrivedAt);
+      formData.append("from", _id);
+      formData.append("content", content);
+      formData.append("letterWallPaper", newLetterPaper);
+
+      await sendLetter(formData, _id);
+      setModalMessage("편지 배송을 시작합니다.");
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
@@ -116,13 +130,17 @@ function NewLetter() {
     <>
       {modalMessage && (
         <Modal width="50rem" height="20rem">
-          <p>{modalMessage}</p>
-          <button onClick={handleOkButtonClick}>확인</button>
+          <div className="content">
+            <p>{modalMessage}</p>
+            <button onClick={handleOkButtonClick}>확인</button>
+          </div>
         </Modal>
       )}
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       <LetterWrapper>

@@ -9,12 +9,27 @@ import paper from "../../assets/leaf.jpg";
 
 function DeliveredLetterDetail() {
   const navigate = useNavigate();
-  const { userId, letterId, content, letterWallPaper, userLat, userLng } =
-    useLocation().state;
+  const {
+    userId,
+    letterId,
+    content,
+    letterWallPaper,
+    fromLat,
+    fromLng,
+    toLat,
+    toLng,
+  } = useLocation().state;
 
   function handleReplayButtonClick() {
     navigate(`/sendLetter/${userId}`, {
-      state: { coor: [userLat, userLng], path: "/letters/delivered", letterId },
+      state: {
+        toLat,
+        toLng,
+        path: "/letters/delivered",
+        letterId,
+        fromLat,
+        fromLng,
+      },
     });
   }
 
@@ -24,7 +39,7 @@ function DeliveredLetterDetail() {
         <StyledButton onClick={handleReplayButtonClick}>답장하기</StyledButton>
       </ButtonWrapper>
       <LetterContentContainer>
-        <img src={letterWallPaper ? letterWallPaper : paper} alt="wallpaper" />
+        <img src={!letterWallPaper ? paper : letterWallPaper} alt="wallpaper" />
         <textarea value={content} readOnly />
       </LetterContentContainer>
     </LetterWrapper>

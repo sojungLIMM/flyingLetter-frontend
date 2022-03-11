@@ -110,8 +110,6 @@ function InTransitLetterDetail() {
       const res = await getCurrentLocationData(...currentCoordinate);
       const weatherType = getWeatherType(res.weather[0].id);
 
-      console.log("res", res);
-
       setFlyingMailInfo((prev) => ({
         ...prev,
         currentLocation: `${countryNames[res.sys.country]} ${res.name}`,
@@ -128,7 +126,9 @@ function InTransitLetterDetail() {
     <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       {loading === "success" && newCoor.length && flyingMailInfo.weatherType && (

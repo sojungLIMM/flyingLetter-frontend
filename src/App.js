@@ -39,8 +39,10 @@ function App() {
     <Wrapper>
       {modalMessage && (
         <Modal width="50rem" height="20rem">
-          <div>{modalMessage}</div>
-          <button onClick={handleClickBackButton}>Back</button>
+          <div className="content">
+            <div>{modalMessage}</div>
+            <button onClick={handleClickBackButton}>Back</button>
+          </div>
         </Modal>
       )}
       <Routes>

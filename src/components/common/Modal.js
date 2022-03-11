@@ -29,6 +29,23 @@ const ModalWrapper = styled.div`
   transform: translate(-50%, -50%);
   font-size: 1.7rem;
   font-weight: bold;
+
+  .content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .content button {
+    margin: 30px 0;
+    padding: 8px 18px;
+    background: #66b28a;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
 `;
 
 const OverlayWrapper = styled.div`

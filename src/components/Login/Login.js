@@ -38,7 +38,9 @@ function Login() {
     <>
       {modalMessage && (
         <Modal onClick={setModalMessage} width="50rem" height="20rem">
-          <p>{modalMessage}</p>
+          <div className="content">
+            <p>{modalMessage}</p>
+          </div>
         </Modal>
       )}
       <LoginWrapper>

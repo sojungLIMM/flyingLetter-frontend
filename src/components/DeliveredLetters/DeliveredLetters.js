@@ -79,7 +79,9 @@ function DeliveredLetters() {
     <>
       {!isLoading && errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       <LettersWrapper>

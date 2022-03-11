@@ -6,7 +6,8 @@ import { Icon } from "@iconify/react";
 
 function FriendListEntry({
   id,
-  coor,
+  toLat,
+  toLng,
   profileImage,
   nickname,
   country,
@@ -17,7 +18,7 @@ function FriendListEntry({
 
   function handleWriteButtonClick() {
     navigate(`/sendLetter/${id}`, {
-      state: { coor: coor.split("_"), path: "/friendList" },
+      state: { toLat, toLng, path: "/friendList" },
     });
   }
 
@@ -74,7 +75,8 @@ const FriendContainer = styled.div`
 
 FriendListEntry.propTypes = {
   id: PropTypes.string.isRequired,
-  coor: PropTypes.string.isRequired,
+  toLat: PropTypes.number.isRequired,
+  toLng: PropTypes.number.isRequired,
   profileImage: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,

@@ -58,7 +58,6 @@ function Main() {
         const { data } = await getLetters(userId, {
           today,
           count: true,
-          country,
         });
 
         setDeliveredLetterCount(data.data.counts.deliveredLetterCount);
@@ -101,7 +100,7 @@ function Main() {
     letterId,
     userId,
     content,
-    wallpaper,
+    letterWallPaper,
     userLat,
     userLng,
     letterLat,
@@ -112,13 +111,22 @@ function Main() {
       [letterLat, letterLng]
     );
 
-    if (distance > 0.5) {
-      setErrorMessage("현재 위치에서 500m 이내의 편지에만 답장할 수 있습니다.");
+    if (distance > 1) {
+      setErrorMessage("현재 위치에서 1km 이내의 편지에만 답장할 수 있습니다.");
       return;
     }
 
     navigate(`/letters/delivered/${letterId}`, {
-      state: { userId, letterId, content, wallpaper, userLat, userLng },
+      state: {
+        userId,
+        letterId,
+        content,
+        letterWallPaper,
+        fromLat: location.lat,
+        fromLng: location.lng,
+        toLat: userLat,
+        toLng: userLng,
+      },
     });
   }
 
@@ -126,7 +134,9 @@ function Main() {
     <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       <MainWrapper>

@@ -70,7 +70,9 @@ function FriendList() {
     <>
       {!isLoading && errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       <FriendListWrapper>
@@ -94,7 +96,8 @@ function FriendList() {
                 <FriendListEntry
                   key={_id}
                   id={_id}
-                  coor={`${lat}_${lng}`}
+                  toLat={lat}
+                  toLng={lng}
                   profileImage={profileImage}
                   nickname={nickname}
                   country={country}

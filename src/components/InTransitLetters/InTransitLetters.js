@@ -79,7 +79,9 @@ function InTransitLetters() {
     <>
       {!isLoading && errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-          <p>{errorMessage}</p>
+          <div className="content">
+            <p>{errorMessage}</p>
+          </div>
         </Modal>
       )}
       <LettersWrapper>
@@ -88,7 +90,7 @@ function InTransitLetters() {
         {!!letters.length && !isLoading && (
           <LettersContainer>
             {letters.map((letter, index) => {
-              const { _id, arrivedAt, from } = letter;
+              const { _id, arrivedAt, newFromLat, newFromLng, from } = letter;
               const lastElement = index === letters.length - 1;
 
               return (
@@ -98,8 +100,8 @@ function InTransitLetters() {
                   arrivedAt={arrivedAt}
                   nickname={from.nickname}
                   country={from.country}
-                  lat={from.lat}
-                  lng={from.lng}
+                  lat={!newFromLat ? from.lat : newFromLat}
+                  lng={!newFromLng ? from.lng : newFromLng}
                   targetRef={lastElement ? setLastElement : null}
                 />
               );

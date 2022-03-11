@@ -21,7 +21,7 @@ function DeliveredLetterEntry({
 
   function handleLetterClick() {
     navigate(`/letters/delivered/${letterId}`, {
-      state: { userId, content, letterWallPaper, lat, lng },
+      state: { userId, content, letterWallPaper, toLat: lat, toLng: lng },
     });
   }
 

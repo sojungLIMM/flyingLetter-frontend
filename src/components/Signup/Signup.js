@@ -63,7 +63,6 @@ function Signup() {
       seIsUniqueEmail(true);
       setModalMessage(VALID_EMAIL);
     } catch (error) {
-      console.log(error);
       setModalMessage(error.response.data.message);
     }
   }
@@ -215,7 +214,9 @@ function Signup() {
     <>
       {modalMessage && (
         <Modal onClick={setModalMessage} width="50rem" height="20rem">
-          <p>{modalMessage}</p>
+          <div className="content">
+            <p>{modalMessage}</p>
+          </div>
         </Modal>
       )}
       <SignupWrapper>
