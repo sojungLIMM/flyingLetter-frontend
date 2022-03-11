@@ -7,7 +7,7 @@ import LoadingSpinner from "../common/LoadingSpinner";
 import DeliveredLetterEntry from "../DeliveredLetters/DeliveredLetterEntry";
 import ListWrapper from "../common/ListWrapper";
 import PrevButton from "../common/PrevButton";
-import { getDeliveredLetters } from "../../api/axios";
+import { getLetters } from "../../api/axios";
 import { NO_DELIVERED_LETTER } from "../../constants";
 
 const options = {
@@ -21,47 +21,58 @@ function DeliveredLetters() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
-  const [isNext, setIsNext] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isNext, setIsNext] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [letters, setLetters] = useState([]);
+  const [lastElement, setLastElement] = useState(null);
 
-  const targetObserver = useRef();
+  const targetObserver = useRef(
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    }, options)
+  );
 
   useEffect(() => {
-    fetchLettersData(page);
-  }, [page]);
-
-  useEffect(() => {
-    if (isLoading) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          loadMore();
-        }
-      }, options);
-      observer.observe(targetObserver.current);
+    if (isNext) {
+      fetchLettersData(page);
     }
-  }, [isLoading]);
+  }, [page, isNext]);
+
+  useEffect(() => {
+    const currentElement = lastElement;
+    const currentObserver = targetObserver.current;
+
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [lastElement]);
 
   async function fetchLettersData(page) {
     try {
+      setIsLoading(true);
+
       const today = new Date();
-      const { data } = await getDeliveredLetters(userId, {
+      const { data } = await getLetters(userId, {
         page,
         today,
         isDelivered: true,
       });
 
-      setLetters((prevLetters) => [...prevLetters, ...data.data.letters]);
-      setIsLoading(true);
+      setLetters((prev) => [...new Set([...prev, ...data.data.letters])]);
+      setIsLoading(false);
       setIsNext(data.data.isNext);
     } catch (error) {
       setErrorMessage(error.response.data.message);
       setIsLoading(false);
     }
-  }
-
-  function loadMore() {
-    setPage((prevPage) => prevPage + 1);
   }
 
   return (
@@ -74,27 +85,30 @@ function DeliveredLetters() {
       <LettersWrapper>
         <PrevButton path="/main" />
         {!isLoading && !letters.length && <p>{NO_DELIVERED_LETTER}</p>}
-        <LettersContainer>
-          {letters.map((letter, index) => {
-            const { _id, content, letterWallPaper, arrivedAt, from } = letter;
-            const lastElement = index === letters.length - 1;
+        {!!letters.length && !isLoading && (
+          <LettersContainer>
+            {letters.map((letter, index) => {
+              const { _id, content, letterWallPaper, arrivedAt, from } = letter;
+              const lastElement = index === letters.length - 1;
 
-            return (
-              <DeliveredLetterEntry
-                key={_id}
-                id={_id}
-                content={content}
-                letterWallPaper={letterWallPaper}
-                arrivedAt={arrivedAt}
-                nickname={from.nickname}
-                country={from.country}
-                lat={from.lat}
-                lng={from.lng}
-                targetRef={lastElement ? targetObserver : null}
-              />
-            );
-          })}
-        </LettersContainer>
+              return (
+                <DeliveredLetterEntry
+                  key={_id}
+                  letterId={_id}
+                  content={content}
+                  letterWallPaper={letterWallPaper}
+                  arrivedAt={arrivedAt}
+                  nickname={from.nickname}
+                  country={from.country}
+                  userId={from._id}
+                  lat={from.lat}
+                  lng={from.lng}
+                  targetRef={lastElement ? setLastElement : null}
+                />
+              );
+            })}
+          </LettersContainer>
+        )}
         {isLoading && isNext && <LoadingSpinner />}
       </LettersWrapper>
     </>

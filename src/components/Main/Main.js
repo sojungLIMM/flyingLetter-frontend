@@ -1,41 +1,74 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import {
+  MapContainer,
+  TileLayer,
+  CircleMarker,
+  Marker,
+  Popup,
+} from "react-leaflet";
+import { Icon } from "leaflet";
 
 import Header from "../common/Header";
 import Modal from "../common/Modal";
-import wirttingImage from "../../assets/typing.png";
+import writingImage from "../../assets/typing.png";
+import pinkLetter from "../../assets/pinkLetter.png";
 import { logout } from "../../features/userSlice";
-import { getDeliveredLetters } from "../../api/axios";
+import { getLetters } from "../../api/axios";
+import useGeoLocation from "../../hooks/useGeoLocation";
+import getDistance from "../../utils/getDistance";
+import { LOADING_GET_LOCATION } from "../../constants";
+
+const letterMarker = new Icon({
+  iconUrl: pinkLetter,
+  iconSize: [35, 35],
+});
 
 function Main() {
+  const location = useGeoLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { _id, email, country, language, nickname, profileImage } = useSelector(
-    ({ user }) => user.data
-  );
+  const {
+    _id: userId,
+    email,
+    country,
+    language,
+    nickname,
+    profileImage,
+  } = useSelector(({ user }) => user.data);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [deliveredLetterCount, setDeliveredLetterCount] = useState(0);
   const [inTransitLetterCount, setIntransitLetterCount] = useState(0);
+  const [leavedLetters, setLeavedLetters] = useState([]);
 
   useEffect(() => {
-    if (!_id) return;
+    if (!userId) return;
+
+    if (location.loaded && location.error) {
+      setErrorMessage(location.error.message);
+    }
 
     const today = new Date();
 
     (async () => {
       try {
-        const { data } = await getDeliveredLetters(_id, { today, count: true });
+        const { data } = await getLetters(userId, {
+          today,
+          count: true,
+          country,
+        });
 
         setDeliveredLetterCount(data.data.counts.deliveredLetterCount);
         setIntransitLetterCount(data.data.counts.inTransitLetterCount);
+        setLeavedLetters(data.data.leavedLetters);
       } catch (error) {
         setErrorMessage(error.response.data.message);
       }
     })();
-  }, [_id]);
+  }, [userId]);
 
   function handleLogoutButtonClick() {
     dispatch(logout());
@@ -52,6 +85,41 @@ function Main() {
 
   function handleIntransitCountClick() {
     navigate("/letters/inTransit");
+  }
+
+  function handleLeaveLetterButtonClick() {
+    navigate(`/sendLetter/${userId}`, {
+      state: {
+        leaveLetter: true,
+        lat: location.lat,
+        lng: location.lng,
+      },
+    });
+  }
+
+  function handleReadButtonClick(
+    letterId,
+    userId,
+    content,
+    wallpaper,
+    userLat,
+    userLng,
+    letterLat,
+    letterLng
+  ) {
+    const distance = getDistance(
+      [location.lat, location.lng],
+      [letterLat, letterLng]
+    );
+
+    if (distance > 0.5) {
+      setErrorMessage("현재 위치에서 500m 이내의 편지에만 답장할 수 있습니다.");
+      return;
+    }
+
+    navigate(`/letters/delivered/${letterId}`, {
+      state: { userId, letterId, content, wallpaper, userLat, userLng },
+    });
   }
 
   return (
@@ -103,13 +171,101 @@ function Main() {
             <p>세계 곳곳의 새로운 펜팔 친구에게</p>
             <p>편지를 보내보세요</p>
             <button onClick={handleFriendSelectButtonClick}>선택하기</button>
-            <img src={wirttingImage} alt="typewriter image" />
+            <img src={writingImage} alt="typewriter image" />
           </div>
         </FriendListEntryContainer>
+        <MapWrapper>
+          <h3>ㅡ find letter ㅡ</h3>
+          <button
+            className="leave-button"
+            onClick={handleLeaveLetterButtonClick}
+          >
+            현재 위치에 편지 남기기
+          </button>
+          {!location.loaded && <p>{LOADING_GET_LOCATION}</p>}
+          {location.loaded && (
+            <MapContainer
+              center={[location.lat, location.lng]}
+              zoom={15}
+              minZoom={2}
+            >
+              <TileLayer
+                className="container"
+                attribution={process.env.REACT_APP_OPEN_STREET_MAP_ATTRIBUTION}
+                url={process.env.REACT_APP_OPEN_STREET_MAP_URL}
+              />
+              {leavedLetters.map((letter) => {
+                const { _id, lat, lng, content, letterWallPaper, from } =
+                  letter;
+
+                return (
+                  <Marker
+                    key={letter._id}
+                    position={[letter.lat, letter.lng]}
+                    icon={letterMarker}
+                  >
+                    <Popup>
+                      <img
+                        className="from-img"
+                        src={letter.from.profileImage}
+                      />
+                      <p className="from-nickname">
+                        from.{letter.from.nickname}
+                      </p>
+                      <button
+                        onClick={() =>
+                          handleReadButtonClick(
+                            _id,
+                            from._id,
+                            content,
+                            letterWallPaper,
+                            from.lat,
+                            from.lng,
+                            lat,
+                            lng
+                          )
+                        }
+                        className="read-button"
+                      >
+                        편지 읽기
+                      </button>
+                    </Popup>
+                  </Marker>
+                );
+              })}
+              <CircleMarker
+                className="user-position"
+                center={[location.lat, location.lng]}
+                radius={10}
+              />
+            </MapContainer>
+          )}
+        </MapWrapper>
       </MainWrapper>
     </>
   );
 }
+
+const rainbow = keyframes`
+  0% {
+    stroke: red;
+  }
+  17% {
+    stroke: orange;
+  }
+  34% {
+    stroke: yellow;
+  }
+  51% {
+    stroke: green;
+  }
+  68% {
+    stroke: blue;
+  }
+  80% {
+    stroke: purple;
+  }
+`;
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -119,6 +275,68 @@ const MainWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow: scroll;
+`;
+
+const MapWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4vh 0;
+
+  .leave-button {
+    margin: 30px 0;
+    padding: 8px 18px;
+    background: #66b28a;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .user-position {
+    fill: none;
+    stroke: red;
+    stroke-width: 5px;
+    animation: ${rainbow} 3s infinite;
+  }
+
+  .leaflet-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .leaflet-popup-content {
+    width: 100px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .from-img {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+  }
+
+  .from-nickname {
+    margin: 0;
+    padding: 7px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .read-button {
+    padding: 5px 10px;
+    background: rgb(240, 228, 198);
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    cursor: pointer;
+  }
 `;
 
 const ButtonContainer = styled.div`
