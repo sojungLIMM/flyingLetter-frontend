@@ -194,7 +194,7 @@ function Main() {
                 attribution={process.env.REACT_APP_OPEN_STREET_MAP_ATTRIBUTION}
                 url={process.env.REACT_APP_OPEN_STREET_MAP_URL}
               />
-              {leavedLetters.map((letter) => {
+              {leavedLetters?.map((letter) => {
                 const { _id, lat, lng, content, letterWallPaper, from } =
                   letter;
 
