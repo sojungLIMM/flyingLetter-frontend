@@ -10,7 +10,6 @@ import WeatherBackground from "../WeatherBackground/WeatherBackground";
 import FlyingMarker from "../FlyingMarker/FlyingMarker";
 import PrevButton from "../common/PrevButton";
 import Modal from "../common/Modal";
-import StyledButton from "../common/StyledButton";
 import raindropsImg from "../../assets/raindrops.png";
 import mailBoxImg from "../../assets/mailbox.png";
 import lightningImg from "../../assets/lightining.png";
@@ -37,20 +36,22 @@ function InTransitLetterDetail() {
   const [newCoor, setNewcoor] = useState([]);
   const [flyingMailInfo, setFlyingMailInfo] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const [map, setMap] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
 
   useEffect(() => {
     if (!map) return;
 
-    setTimeout(() => {
-      map.flyTo(newCoor, 13, {
-        duration: 3,
-      });
-      setTimeout(() => {
-        setIsZoomed(true);
-      }, 3000);
-    }, 500);
+    map.flyTo(newCoor, 13, {
+      duration: 3,
+    });
+
+    const timerId = setTimeout(() => {
+      setIsZoomed(true);
+    }, 3000);
+
+    return () => clearTimeout(timerId);
   }, [map]);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ function InTransitLetterDetail() {
 
       if (remainingSeconds < 0) {
         clearTimeout(timerId);
-        navigate("/main");
+        setModalMessage("편지가 도착했습니다.");
         return;
       }
 
@@ -130,12 +131,24 @@ function InTransitLetterDetail() {
     }
   }
 
+  function handleOkButtonClick() {
+    navigate("/main");
+  }
+
   return (
     <>
       {errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <div className="content">
             <p>{errorMessage}</p>
+          </div>
+        </Modal>
+      )}
+      {modalMessage && (
+        <Modal onClick={setModalMessage} width="50rem" height="20rem">
+          <div className="content">
+            <p>{modalMessage}</p>
+            <button onClick={handleOkButtonClick}>확인</button>
           </div>
         </Modal>
       )}
@@ -207,9 +220,11 @@ function InTransitLetterDetail() {
               <div className="location">
                 <div>현재 위치: {flyingMailInfo.currentLocation}</div>
                 <div>날씨: {flyingMailInfo.weather}</div>
-                <StyledButton type="button" onClick={getCurrentWeatherInfo}>
-                  새로고침
-                </StyledButton>
+                <WeatherUpdateWrppaer>
+                  <button type="button" onClick={getCurrentWeatherInfo}>
+                    위치, 날씨 업데이트
+                  </button>
+                </WeatherUpdateWrppaer>
               </div>
             </InformationWrapper>
           </MapWrapper>
@@ -382,6 +397,7 @@ const MapWrapper = styled.div`
   .leaflet-container {
     width: 600px;
     height: 600px;
+    z-index: 1;
   }
 
   .thunderStorm {
@@ -491,6 +507,21 @@ const InformationWrapper = styled.div`
   .distance,
   .location {
     margin: 20px;
+  }
+`;
+
+const WeatherUpdateWrppaer = styled.p`
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 8px 18px;
+    background-color: rgba(98, 136, 131, 1);
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 

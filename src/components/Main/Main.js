@@ -13,6 +13,7 @@ import { Icon } from "leaflet";
 
 import Header from "../common/Header";
 import Modal from "../common/Modal";
+import StyledGreenButton from "../common/StyledGreenButton";
 import writingImage from "../../assets/typing.png";
 import pinkLetter from "../../assets/pinkLetter.png";
 import { logout } from "../../features/userSlice";
@@ -45,7 +46,7 @@ function Main() {
   const [leavedLetters, setLeavedLetters] = useState([]);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || !location.loaded) return;
 
     if (location.loaded && location.error) {
       setErrorMessage(location.error.message);
@@ -67,7 +68,7 @@ function Main() {
         setErrorMessage(error.response.data.message);
       }
     })();
-  }, [userId]);
+  }, [userId, location.loaded]);
 
   function handleLogoutButtonClick() {
     dispatch(logout());
@@ -98,7 +99,7 @@ function Main() {
 
   function handleReadButtonClick(
     letterId,
-    userId,
+    fromUserId,
     content,
     letterWallPaper,
     userLat,
@@ -111,6 +112,11 @@ function Main() {
       [letterLat, letterLng]
     );
 
+    if (userId === fromUserId) {
+      setErrorMessage("자신의 편지에는 답장할 수 없습니다.");
+      return;
+    }
+
     if (distance > 1) {
       setErrorMessage("현재 위치에서 1km 이내의 편지에만 답장할 수 있습니다.");
       return;
@@ -118,7 +124,7 @@ function Main() {
 
     navigate(`/letters/delivered/${letterId}`, {
       state: {
-        userId,
+        userId: fromUserId,
         letterId,
         content,
         letterWallPaper,
@@ -180,18 +186,17 @@ function Main() {
           <div className="content">
             <p>세계 곳곳의 새로운 펜팔 친구에게</p>
             <p>편지를 보내보세요</p>
-            <button onClick={handleFriendSelectButtonClick}>선택하기</button>
+            <StyledGreenButton onClick={handleFriendSelectButtonClick}>
+              선택하기
+            </StyledGreenButton>
             <img src={writingImage} alt="typewriter image" />
           </div>
         </FriendListEntryContainer>
         <MapWrapper>
           <h3>ㅡ find letter ㅡ</h3>
-          <button
-            className="leave-button"
-            onClick={handleLeaveLetterButtonClick}
-          >
+          <StyledGreenButton onClick={handleLeaveLetterButtonClick}>
             현재 위치에 편지 남기기
-          </button>
+          </StyledGreenButton>
           {!location.loaded && <p>{LOADING_GET_LOCATION}</p>}
           {location.loaded && (
             <MapContainer
@@ -215,13 +220,9 @@ function Main() {
                     icon={letterMarker}
                   >
                     <Popup>
-                      <img
-                        className="from-img"
-                        src={letter.from.profileImage}
-                      />
-                      <p className="from-nickname">
-                        from.{letter.from.nickname}
-                      </p>
+                      <img className="from-img" src={from.profileImage} />
+                      <p className="from-nickname">from.{from.nickname}</p>
+                      <p className="from-country">{from.country}</p>
                       <button
                         onClick={() =>
                           handleReadButtonClick(
@@ -293,17 +294,6 @@ const MapWrapper = styled.div`
   align-items: center;
   margin: 4vh 0;
 
-  .leave-button {
-    margin: 30px 0;
-    padding: 8px 18px;
-    background: #66b28a;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
   .user-position {
     fill: none;
     stroke: red;
@@ -314,6 +304,7 @@ const MapWrapper = styled.div`
   .leaflet-container {
     width: 400px;
     height: 400px;
+    z-index: 1;
   }
 
   .leaflet-popup-content {
@@ -325,21 +316,24 @@ const MapWrapper = styled.div`
   }
 
   .from-img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 5px;
     object-fit: cover;
-    width: 100px;
-    height: 100px;
     border-radius: 50%;
     border: 4px solid #fff;
   }
 
-  .from-nickname {
+  .from-nickname,
+  .from-country {
     margin: 0;
-    padding: 7px 0;
+    padding-bottom: 5px;
     font-size: 1.3rem;
     font-weight: bold;
   }
 
   .read-button {
+    margin-top: 5px;
     padding: 5px 10px;
     background: rgb(240, 228, 198);
     border: none;
@@ -455,17 +449,6 @@ const FriendListEntryContainer = styled.div`
     background: rgba(240, 228, 198, 1);
     border-radius: 11px;
     font-size: 1.4rem;
-  }
-
-  button {
-    margin: 30px 0;
-    padding: 8px 18px;
-    background: #66b28a;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
   }
 `;
 

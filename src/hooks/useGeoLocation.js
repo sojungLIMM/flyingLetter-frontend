@@ -8,14 +8,18 @@ function useGeoLocation() {
   });
 
   useEffect(() => {
-    if (!("geolocation" in navigator)) {
+    if (!navigator.geolocation) {
       error({
         code: 0,
         message: "Geolocation is not supported by your browser",
       });
+
+      return;
     }
 
-    navigator.geolocation.getCurrentPosition(success, error);
+    const watchId = navigator.geolocation.watchPosition(success, error);
+
+    return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
   function success(location) {
