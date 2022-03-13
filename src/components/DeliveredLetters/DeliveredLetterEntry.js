@@ -67,7 +67,7 @@ DeliveredLetterEntry.propTypes = {
   userId: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
-  targetRef: PropTypes.func,
+  targetRef: PropTypes.object,
 };
 
 export default DeliveredLetterEntry;

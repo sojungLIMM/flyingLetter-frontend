@@ -61,7 +61,7 @@ InTransitLetterEntry.propTypes = {
   arrivedAt: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  targetRef: PropTypes.func,
+  targetRef: PropTypes.object,
 };
 
 export default InTransitLetterEntry;

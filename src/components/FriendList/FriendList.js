@@ -18,38 +18,32 @@ function FriendList() {
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
   const [isNext, setIsNext] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [friendList, setFriendList] = useState([]);
-  const [lastElement, setLastElement] = useState(null);
 
-  const targetObserver = useRef(
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, options)
-  );
+  const targetObserver = useRef();
 
   useEffect(() => {
-    if (isNext) {
-      fetchFriendsData(page);
-    }
-  }, [page, isNext]);
+    fetchFriendsData(page);
+  }, [page]);
 
   useEffect(() => {
-    const currentElement = lastElement;
-    const currentObserver = targetObserver.current;
+    let observer;
 
-    if (currentElement) {
-      currentObserver.observe(currentElement);
+    if (targetObserver.current) {
+      observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && isNext) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }, options);
+
+      observer.observe(targetObserver.current);
     }
 
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
+      observer?.disconnect(targetObserver.current);
     };
-  }, [lastElement]);
+  }, [targetObserver.current, isNext]);
 
   async function fetchFriendsData(page) {
     try {
@@ -57,7 +51,7 @@ function FriendList() {
 
       const { data } = await getFriendList({ page });
 
-      setFriendList((prev) => [...new Set([...prev, ...data.data.users])]);
+      setFriendList((prevList) => [...prevList, ...data.data.users]);
       setIsLoading(false);
       setIsNext(data.data.isNext);
     } catch (error) {
@@ -78,7 +72,7 @@ function FriendList() {
       <FriendListWrapper>
         <PrevButton path="/main" />
         {!isLoading && !friendList.length && <p>등록된 친구가 없습니다.</p>}
-        {!!friendList.length && !isLoading && (
+        {!!friendList.length && (
           <FriendListContainer>
             {friendList.map((user, index) => {
               const lastIndex = index === friendList.length - 1;
@@ -102,7 +96,7 @@ function FriendList() {
                   nickname={nickname}
                   country={country}
                   language={language}
-                  targetRef={lastIndex ? setLastElement : null}
+                  targetRef={lastIndex ? targetObserver : null}
                 />
               );
             })}

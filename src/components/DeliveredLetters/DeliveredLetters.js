@@ -24,36 +24,30 @@ function DeliveredLetters() {
   const [isNext, setIsNext] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [letters, setLetters] = useState([]);
-  const [lastElement, setLastElement] = useState(null);
 
-  const targetObserver = useRef(
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, options)
-  );
+  const targetObserver = useRef();
 
   useEffect(() => {
-    if (isNext) {
-      fetchLettersData(page);
-    }
-  }, [page, isNext]);
+    fetchLettersData(page);
+  }, [page]);
 
   useEffect(() => {
-    const currentElement = lastElement;
-    const currentObserver = targetObserver.current;
+    let observer;
 
-    if (currentElement) {
-      currentObserver.observe(currentElement);
+    if (targetObserver.current) {
+      observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && isNext) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }, options);
+
+      observer.observe(targetObserver.current);
     }
 
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
+      observer?.disconnect(targetObserver.current);
     };
-  }, [lastElement]);
+  }, [targetObserver.current, isNext]);
 
   async function fetchLettersData(page) {
     try {
@@ -66,7 +60,7 @@ function DeliveredLetters() {
         isDelivered: true,
       });
 
-      setLetters((prev) => [...new Set([...prev, ...data.data.letters])]);
+      setLetters((prev) => [...prev, ...data.data.letters]);
       setIsLoading(false);
       setIsNext(data.data.isNext);
     } catch (error) {
@@ -87,7 +81,7 @@ function DeliveredLetters() {
       <LettersWrapper>
         <PrevButton path="/main" />
         {!isLoading && !letters.length && <p>{NO_DELIVERED_LETTER}</p>}
-        {!!letters.length && !isLoading && (
+        {!!letters.length && (
           <LettersContainer>
             {letters.map((letter, index) => {
               const { _id, content, letterWallPaper, arrivedAt, from } = letter;
@@ -105,7 +99,7 @@ function DeliveredLetters() {
                   userId={from._id}
                   lat={from.lat}
                   lng={from.lng}
-                  targetRef={lastElement ? setLastElement : null}
+                  targetRef={lastElement ? targetObserver : null}
                 />
               );
             })}

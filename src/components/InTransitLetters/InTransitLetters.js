@@ -24,36 +24,30 @@ function InTransitLetters() {
   const [isNext, setIsNext] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [letters, setLetters] = useState([]);
-  const [lastElement, setLastElement] = useState(null);
 
-  const targetObserver = useRef(
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, options)
-  );
+  const targetObserver = useRef();
 
   useEffect(() => {
-    if (isNext) {
-      fetchLettersData(page);
-    }
-  }, [page, isNext]);
+    fetchLettersData(page);
+  }, [page]);
 
   useEffect(() => {
-    const currentElement = lastElement;
-    const currentObserver = targetObserver.current;
+    let observer;
 
-    if (currentElement) {
-      currentObserver.observe(currentElement);
+    if (targetObserver.current) {
+      observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && isNext) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }, options);
+
+      observer.observe(targetObserver.current);
     }
 
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
+      observer?.disconnect(targetObserver.current);
     };
-  }, [lastElement]);
+  }, [targetObserver.current, isNext]);
 
   async function fetchLettersData(page) {
     try {
@@ -87,7 +81,7 @@ function InTransitLetters() {
       <LettersWrapper>
         <PrevButton />
         {!isLoading && !letters.length && <p>{NO_FLYING_LETTER}</p>}
-        {!!letters.length && !isLoading && (
+        {!!letters.length && (
           <LettersContainer>
             {letters.map((letter, index) => {
               const { _id, arrivedAt, newFromLat, newFromLng, from } = letter;
@@ -102,7 +96,7 @@ function InTransitLetters() {
                   country={from.country}
                   lat={!newFromLat ? from.lat : newFromLat}
                   lng={!newFromLng ? from.lng : newFromLng}
-                  targetRef={lastElement ? setLastElement : null}
+                  targetRef={lastElement ? targetObserver : null}
                 />
               );
             })}
