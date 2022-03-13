@@ -29,7 +29,7 @@ function NewLetter() {
 
   function handleLetterPaperChange(e) {
     if (e.target.files[0].size > 1 * 1024 * 1024) {
-      setModalMessage(MAX_FILE_SIZE);
+      setErrorMessage(MAX_FILE_SIZE);
       return;
     }
 
@@ -140,6 +140,7 @@ function NewLetter() {
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <div className="content">
             <p>{errorMessage}</p>
+            <button onClick={handleOkButtonClick}>확인</button>
           </div>
         </Modal>
       )}

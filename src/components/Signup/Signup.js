@@ -247,8 +247,12 @@ function Signup() {
               required
               onChange={(e) => handleEmailChange(e.target.value)}
             />
-            <StyledButton type="button" onClick={handleEmailCheckButtonClick}>
-              중복 확인
+            <StyledButton
+              className="check-button"
+              type="button"
+              onClick={handleEmailCheckButtonClick}
+            >
+              이메일 중복 확인
             </StyledButton>
           </div>
           <div className="input-box">
@@ -281,9 +285,10 @@ function Signup() {
             />
             <StyledButton
               type="button"
+              className="check-button"
               onClick={handleClickNicknameCheckButton}
             >
-              중복 확인
+              닉네임 중복 확인
             </StyledButton>
           </div>
           <div className="input-box">
@@ -349,6 +354,10 @@ const SignupWrapper = styled.div`
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     font-size: 15px;
     font-weight: 200px;
+  }
+
+  .check-button {
+    width: 130px;
   }
 `;
 

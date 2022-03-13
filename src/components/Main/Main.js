@@ -46,7 +46,7 @@ function Main() {
   const [leavedLetters, setLeavedLetters] = useState([]);
 
   useEffect(() => {
-    if (!userId || !location.loaded) return;
+    if (!userId) return;
 
     if (location.loaded && location.error) {
       setErrorMessage(location.error.message);
@@ -68,7 +68,7 @@ function Main() {
         setErrorMessage(error.response.data.message);
       }
     })();
-  }, [userId, location.loaded]);
+  }, [userId]);
 
   function handleLogoutButtonClick() {
     dispatch(logout());
@@ -194,62 +194,67 @@ function Main() {
         </FriendListEntryContainer>
         <MapWrapper>
           <h3>ㅡ find letter ㅡ</h3>
-          <StyledGreenButton onClick={handleLeaveLetterButtonClick}>
-            현재 위치에 편지 남기기
-          </StyledGreenButton>
           {!location.loaded && <p>{LOADING_GET_LOCATION}</p>}
           {location.loaded && (
-            <MapContainer
-              center={[location.lat, location.lng]}
-              zoom={15}
-              minZoom={2}
-            >
-              <TileLayer
-                className="container"
-                attribution={process.env.REACT_APP_OPEN_STREET_MAP_ATTRIBUTION}
-                url={process.env.REACT_APP_OPEN_STREET_MAP_URL}
-              />
-              {leavedLetters?.map((letter) => {
-                const { _id, lat, lng, content, letterWallPaper, from } =
-                  letter;
-
-                return (
-                  <Marker
-                    key={letter._id}
-                    position={[letter.lat, letter.lng]}
-                    icon={letterMarker}
-                  >
-                    <Popup>
-                      <img className="from-img" src={from.profileImage} />
-                      <p className="from-nickname">from.{from.nickname}</p>
-                      <p className="from-country">{from.country}</p>
-                      <button
-                        onClick={() =>
-                          handleReadButtonClick(
-                            _id,
-                            from._id,
-                            content,
-                            letterWallPaper,
-                            from.lat,
-                            from.lng,
-                            lat,
-                            lng
-                          )
-                        }
-                        className="read-button"
-                      >
-                        편지 읽기
-                      </button>
-                    </Popup>
-                  </Marker>
-                );
-              })}
-              <CircleMarker
-                className="user-position"
+            <>
+              <StyledGreenButton onClick={handleLeaveLetterButtonClick}>
+                현재 위치에 편지 남기기
+              </StyledGreenButton>
+              <MapContainer
                 center={[location.lat, location.lng]}
-                radius={16.5}
-              />
-            </MapContainer>
+                zoom={15}
+                minZoom={2}
+              >
+                <TileLayer
+                  className="container"
+                  attribution={
+                    process.env.REACT_APP_OPEN_STREET_MAP_ATTRIBUTION
+                  }
+                  url={process.env.REACT_APP_OPEN_STREET_MAP_URL}
+                />
+                {leavedLetters?.map((letter) => {
+                  const { _id, lat, lng, content, letterWallPaper, from } =
+                    letter;
+
+                  return (
+                    <Marker
+                      key={letter._id}
+                      position={[letter.lat, letter.lng]}
+                      icon={letterMarker}
+                      alt="pink letter"
+                    >
+                      <Popup>
+                        <img className="from-img" src={from.profileImage} />
+                        <p className="from-nickname">from.{from.nickname}</p>
+                        <p className="from-country">{from.country}</p>
+                        <button
+                          onClick={() =>
+                            handleReadButtonClick(
+                              _id,
+                              from._id,
+                              content,
+                              letterWallPaper,
+                              from.lat,
+                              from.lng,
+                              lat,
+                              lng
+                            )
+                          }
+                          className="read-button"
+                        >
+                          편지 읽기
+                        </button>
+                      </Popup>
+                    </Marker>
+                  );
+                })}
+                <CircleMarker
+                  className="user-position"
+                  center={[location.lat, location.lng]}
+                  radius={16.5}
+                />
+              </MapContainer>
+            </>
           )}
         </MapWrapper>
       </MainWrapper>

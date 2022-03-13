@@ -41,7 +41,7 @@ function App() {
         <Modal width="50rem" height="20rem">
           <div className="content">
             <div>{modalMessage}</div>
-            <button onClick={handleClickBackButton}>Back</button>
+            <button onClick={handleClickBackButton}>확인</button>
           </div>
         </Modal>
       )}
