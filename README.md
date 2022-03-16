@@ -142,9 +142,9 @@ _**BackEnd**_
       <img src="./readme-assets/fog.gif" style="width: 30%; margin: 5px;"/>
     </div>
     <div style="display: flex; text-align: center;">
-      <div style="width: 30%; margin: 5px;">Clear</div>
-      <div style="width: 30%; margin: 5px;">Clouds</div>
-      <div style="width: 30%; margin: 5px;">Fog</div>
+      <span style="width: 30%; margin: 5px;">Clouds</span>
+      <span style="width: 30%; margin: 5px;">Fog</span>
+      <span style="width: 30%; margin: 5px;">Clear</span>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/rain.gif" style="width: 30%; margin: 5px;" />
@@ -152,17 +152,17 @@ _**BackEnd**_
       <img src="./readme-assets/snow.gif" style="width: 30%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <div style="width: 30%; margin: 5px;">Rain</div>
-      <div style="width: 30%; margin: 5px;">Sand</div>
-      <div style="width: 30%; margin: 5px;">Snow</div>
+      <span style="width: 30%; margin: 5px;">Rain</span>
+      <span style="width: 30%; margin: 5px;">Sand</span>
+      <span style="width: 30%; margin: 5px;">Snow</span>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/thunder.gif" style="width: 30%; margin: 5px;"/>
       <img src="./readme-assets/tornado.gif" style="width: 30%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <div style="width: 30%; margin: 5px;">ThunderStorm</div>
-      <div style="width: 30%; margin: 5px;">Tornado</div>
+      <span style="width: 30%; margin: 5px;">ThunderStorm</span>
+      <span style="width: 30%; margin: 5px;">Tornado</span>
     </div>
   </div>
 </details>
