@@ -5,12 +5,14 @@
 ## **<i>slow online letter! </i>**
 
 온라인 편지지만 마치 실제 편지를 보내는 것과 같은 느낌을 연상케 합니다. <br>
-지금 편지가 어디쯤에 있는지 지도에서 **실시간**으로 확인해보세요!
+지금 편지가 어디쯤에 있는지 지도에서 **실시간**으로 확인해보세요! <br>
+편지의 현재 위치뿐만 아니라 현재 위치의 날씨까지 **귀여운 애니매이션**과 함께 확인하실 수 있습니다!
 
 <br>
 <br>
 
 # **💡 Motivation**
+
 클릭 한번으로 원거리의 사람과 영상통화, 메세지 주고 받기가 간편해진 사회에서 아날로그적인 감성을 느낄 수 있는 웹사이트를 만들고 싶었습니다. <br>
 게다가 편지가 현재 어디를 지나고 있는지 또 현재 위치의 날씨는 어떤지 시각적으로 보여주면 재미있는 작업이 될 것 같다고 생각하여 본 프로젝트를 진행하게 되었습니다.
 
@@ -31,6 +33,7 @@
 # **🗓 Planning**
 
 ### **프로젝트 기간**
+
 - **2021.02.21 ~ 2021.02.27 (1주차)**
 
   아이디어 기획
@@ -76,13 +79,13 @@ _**BackEnd**_
 - multer
 - AWS-S3
 
-
 <br>
 <br>
 
 # **📌 Feature**
 
 `편지보내기`
+
 <details>
   <summary>1. 원하는 펜팔 친구를 골라 편지를 보낸다.</summary>
   <div markdown="1">
@@ -110,6 +113,7 @@ _**BackEnd**_
 <br>
 
 `현재 위치에 편지 남기기`
+
 <details>
   <summary>1. 자신이 현재 위치하고 있는 장소에 편지를 남겨 둘 수 있다.</summary>
   <div markdown="1">
@@ -122,6 +126,7 @@ _**BackEnd**_
 <br>
 
 `편지 확인하기`
+
 <details>
   <summary>1. 배송 완료된 편지만 내용을 확인 할 수 있다.</summary>
   <div markdown="1">
@@ -137,16 +142,32 @@ _**BackEnd**_
       <img src="./readme-assets/fog.gif" style="width: 30%; margin: 5px;"/>
     </div>
     <div style="display: flex; text-align: center;">
+      <div style="width: 30%; margin: 5px;">Clear</div>
+      <div style="width: 30%; margin: 5px;">Clouds</div>
+      <div style="width: 30%; margin: 5px;">Fog</div>
+    </div>
+    <div style="display: flex; text-align: center;">
       <img src="./readme-assets/rain.gif" style="width: 30%; margin: 5px;" />
       <img src="./readme-assets/sand.gif" style="width: 30%; margin: 5px;"/>
       <img src="./readme-assets/snow.gif" style="width: 30%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
+      <div style="width: 30%; margin: 5px;">Rain</div>
+      <div style="width: 30%; margin: 5px;">Sand</div>
+      <div style="width: 30%; margin: 5px;">Snow</div>
+    </div>
+    <div style="display: flex; text-align: center;">
       <img src="./readme-assets/thunder.gif" style="width: 30%; margin: 5px;"/>
       <img src="./readme-assets/tornado.gif" style="width: 30%; margin: 5px;" />
     </div>
+    <div style="display: flex; text-align: center;">
+      <div style="width: 30%; margin: 5px;">ThunderStorm</div>
+      <div style="width: 30%; margin: 5px;">Tornado</div>
+    </div>
   </div>
 </details>
+
+- 날씨 상태는 총 8가지가 존재합니다.
 
 <br>
 <br>
@@ -154,20 +175,24 @@ _**BackEnd**_
 # **📘 PROJECT LOG**
 
 ### **<i>❓ why redux </i>**
+
 어느 페이지를 가도 유저의 정보를 알아야하는 상황이 빈번하여 전역 상태관리가 필요하다고 생각이 들어 redux를 사용하게 되었습니다. <br>
-redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것만 같았습니다.  
+redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것만 같았습니다.
 
 <i>하지만 리덕스 공식홈페이지에서 다음과 같은 글을 보았습니다. </i>
->Redux is a valuable tool for organizing your state, but you should also consider whether it's appropriate for your situation. Don't use Redux just because someone said you should - take some time to understand the potential benefits and tradeoffs of using it.
->>I would like to amend this: don't use Redux until you have problems with vanilla React. -  Dan Abramov
 
->>You'll know when you need Flux. If you aren't sure if you need it, you don't need it. - Pete Hunt
+> Redux is a valuable tool for organizing your state, but you should also consider whether it's appropriate for your situation. Don't use Redux just because someone said you should - take some time to understand the potential benefits and tradeoffs of using it.
+>
+> > I would like to amend this: don't use Redux until you have problems with vanilla React. - Dan Abramov
+
+> > You'll know when you need Flux. If you aren't sure if you need it, you don't need it. - Pete Hunt
 
 따라서 정말 필요하다고 생각된 유저의 정보만 전역 상태관리를 해주었습니다. 하지만 무한스크롤링을 적용한 곳에서 유저가 지금 보고 있는 페이지를 전역상태로 관리 해주었다면 언마운트 후 다시 마운트 될 때 마지막 페이지부터 다시 볼 수 있게 되어 사용자에게 더 좋지 않았을까 하는 아쉬움이 남습니다.
 
 <br>
 
 ### **<i>❓ why leaflet.js</i>**
+
 - 공식 홈페이지의 documetation이 읽기 쉽고 커뮤니티도 잘 되어 있습니다. 라이브러리를 사용하기 위해서는 이해하고 공부하는 과정이 필수적인데 정리가 간결하게 되어있어 이해하기가 쉬웠고 문제를 검색하면 다양한 답변을 찾을 수 있었습니다.
 - 지도 라이브러리가 제공하는 다양한 서비스(교통상황, 길찾기 등)을 사용하지 않기 때문에 지도에 집중되어있는 api인 leaflet을 선택하였습니다.
 - 코드의 크기(38kb)가 작아서 marker, polyline, popup 기능만 쓰고 있는 본 프로젝트에서 쓰기 적합하다고 판단하였습니다.
@@ -178,19 +203,20 @@ redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것
 # **🔥 CHALLENGE**
 
 ### **<i>🔆  실시간으로 변하는 편지 마커의 위도 경도를 구하는 어려움.</i>**
+
 출발지와 도착지가 직선으로 연결되어 있고 그 선을 따라 마커가 실시간으로 이동하는 것과 동시에 현재 위치의 날씨를 보여주고 싶었습니다. <br>
 사용할 openWeather api는 위도 경도 값을 포함하여 get요청을 해야합니다. <br>
 <i>`따라서 마커의 위치가 폴리라인을 따라 실시간으로 이동하면서도 마커가 이동한 곳의 위도, 경도값을 알아야만 했습니다.`</i>
 
 <br>
 
-1. ⛔ 폴리라인에 있는 모든 위도, 경도 값을 구하기.  
+1. ⛔ 폴리라인에 있는 모든 위도, 경도 값을 구하기.
 
 - there is an infinite amount of points in-between two points.
 
 <br>
 
-2. ⛔ 위도, 경도, *각도*, 거리를 인자로 넘겨주면 원하는 곳의 위도, 경도 값을 얻을 수 있는 polygon-coordinates 모듈 사용하기.  
+2. ⛔ 위도, 경도, _각도_, 거리를 인자로 넘겨주면 원하는 곳의 위도, 경도 값을 얻을 수 있는 polygon-coordinates 모듈 사용하기.
 
 - 지구는 구체이기 때문에 우리가 생각하는 각도와는 달라 제가 원하는 결과를 얻지 못하였습니다.
 
@@ -203,15 +229,16 @@ redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것
 - <image src="./readme-assets/graph.png" />
 
 ### **`계산방법`**
+
 1. 출발지의 위도, 경도를 (x1, y1), 도착지의 위도, 경도를 (x2, y2)라고 합니다.
 2. 높이(h)와 밑변(w)의 길이를 구합니다.
    - h = x1 - x2 , w = y1 - y2
 3. 편지 마커가 60초 동안 간다고 하면 높이와 밑변을 각각 60으로 나눕니다.
    - m1 = h / 60, m2 = w / 60
-4. 이동한 시간이 20초라고 하면 m1 * 20, m2 * 20이 현재 위치가 됩니다.
+4. 이동한 시간이 20초라고 하면 m1 _ 20, m2 _ 20이 현재 위치가 됩니다.
 5. 출발지와 도착지 사이에서 8가지의 방향이 나올 수 있다고 계산하였습니다.
 
-  - <image src="./readme-assets/direction.png" width="300px" />
+- <image src="./readme-assets/direction.png" width="300px" />
 
 6. 8가지 방법으로 나누어서 위도, 경도 값을 구하게 하였습니다.
    - x1과 x2의 크기 비교, y1과 y2의 크기 비교, 같은 값일 때 크기 비교
@@ -228,21 +255,26 @@ redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것
 ### **<i> 🔆 Intersection Observer API 사용하기</i>**
 
 ### **무한스크롤링 방법 2가지**
+
 1. ⛔ Scroll Event와 lodash의 throttle 이용하기.
+
 - Scroll Event에서 쓰이는 scrollTop 과 offsetHeight는 reflow를 일으켜서 성능상 좋지 않다.
   - reflow: 모든 엘리먼트의 위치와 길이 등을 다시 계산하는 것으로 문서의 일부 혹은 전체를 다시 렌더링한다.
 - 최적화를 위해 lodash의 throttle을 사용할 수 있다.
   - throttle: 동일 이벤트가 반복적으로 시행되는 경우 일정 시간 동안, 한번만 실행 되도록 만드는 개념.
 - 하지만 scroll 이벤트를 여전히 사용하기 때문에 reflow는 발생한다.
+
 2. ✅ new intersectionobeserver 이용하기.
->❝The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.❞ - mdn
+   > ❝The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.❞ - mdn
+
 - 화면에 내가 지정한 타겟 엘리먼트가 보이는지를 비동기적으로 관찰하는 API이다.
 - throttle을 사용하지 않아도 된다.
 - reflow가 발생하지 않는다.
 
 <br>
 
-### **intersectionobeserver을 사용하면서 어려웠던 점**: 
+### **intersectionobeserver을 사용하면서 어려웠던 점**:
+
 관찰할 대상을 선정하고 관찰 대상이 viewpoint에 들어오면 함수를 실행하는데 실행하는 함수는 page 넘버를 증가시키는 함수입니다. <br>
 page넘버가 증가하면 page넘버가 디펜던시로 있는 useEffect도 실행됩니다.<br>
 해당 useEffect에는 get요청을 하는 axios함수가 있어 다음페이지가 없어도 계속 증가된 page 숫자로 axios 요청을 날리게 되었습니다. <br>
@@ -250,7 +282,8 @@ page넘버가 증가하면 page넘버가 디펜던시로 있는 useEffect도 실
 
 <br>
 
-### **intersectionobeserver을 사용한 이유**:  
+### **intersectionobeserver을 사용한 이유**:
+
 처음 화면을 구성할 때 요소들의 레이아웃을 렌더 트리에 구성하는 과정이 일어납니다. 레이아웃에 영향을 주는 변화가 생기면 다시 렌더 트리를 구성해야합니다. <br>
 다시 렌더트리를 구성하는 것이 reflow이며 reflow는 repaint의 상위 과정이기 때문에 repaint까지 일어나게 됩니다. <br>
 따라서 성능을 위해 reflow를 최소화하며 성능을 높이고 비용을 줄이는 게 중요하다고 생각이 들었습니다. <br>
@@ -260,10 +293,12 @@ page넘버가 증가하면 page넘버가 디펜던시로 있는 useEffect도 실
 <br>
 
 # 아쉬운 점
+
 ### **<i> 처음부터 잘 구성해야한다?! </i>**
+
 첫 계획에는 넣지 않고 추가로 구현해야겠다고 생각한 내용을 프로젝트가 어느 정도 진행한 후에 실제로 추가하게 되었습니다.(메인페이지의 leave letter 부분)
 
-실제로 적용하면서 겪은 아쉬운 점은 확장성을 고려하지 않고 기존에 코드를 짜놓은 탓에 새로운 것을 추가하기 위해 많은 분기 처리가 들어간다는 점이였습니다.(new letter 컴포넌트)  
+실제로 적용하면서 겪은 아쉬운 점은 확장성을 고려하지 않고 기존에 코드를 짜놓은 탓에 새로운 것을 추가하기 위해 많은 분기 처리가 들어간다는 점이였습니다.(new letter 컴포넌트)
 
 컴포넌트를 프레젠테이션 컴포넌트와 컨테이너 컴포넌트로 구분하여 프레젠테이션 컴포넌트는 DOM과 스타일에 구조만 추가할 수 있도록 하고 컨데이너 컴포넌트에서는 상태와 데이터를 다룰 수 있도록 좀 더 HOC(Higher Order Component)로 구성하여 로직을 깔끔하게 만들 수 있지 않았을까 생각합니다.
 <br>
