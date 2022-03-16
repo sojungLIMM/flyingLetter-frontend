@@ -116,7 +116,7 @@ function NewLetter() {
   }
 
   function handleOkButtonClick() {
-    if (state.leaveLetter) {
+    if (state.leaveLetter || state.letterId) {
       navigate("/main");
       setModalMessage(false);
       return;
