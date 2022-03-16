@@ -87,7 +87,7 @@ _**BackEnd**_
   <summary>1. 원하는 펜팔 친구를 골라 편지를 보낸다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/tofriend.gif" alt="breaking" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/tofriend.gif" style="width: 30%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -98,23 +98,23 @@ _**BackEnd**_
   <summary>2. 자신의 위치 근처에 있는 편지를 확인하고 답장을 보낸다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/send.gif" alt="breaking" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/send.gif" style="width: 30%; margin: 5px;"/>
     </div>
   </div>
 </details>
-
-<br>
 
 - 자신의 현재 위치 중심으로 지도가 보이고 근처에 편지가 남겨져 있다면 마커를 볼 수 있다.
 - 마커를 선택하면 편지를 남긴 친구의 정보를 볼 수 있다.
 - 편지를 읽고 원하면 답장을 보낼 수 있다. 답장을 보내면 해당 편지는 지도에서 사라진다.
 
+<br>
+
 `현재 위치에 편지 남기기`
 <details>
-  <summary>자신이 현재 위치하고 있는 장소에 편지를 남겨 둘 수 있다.</summary>
+  <summary>1. 자신이 현재 위치하고 있는 장소에 편지를 남겨 둘 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/leaveLetter.gif" alt="breaking" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/.gif" style="width: 30%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -132,16 +132,18 @@ _**BackEnd**_
   <summary>2. 배송 중인 편지는 편지가 이동하는 경로와 현재 위치, 현재 위치에 따른 <strong>날씨 상황</strong>을 알 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/clear.gif" alt="breaking" style="width: 20%; margin: 5px;"/>
-      <img src="./readme-assets/cloud.gif" alt="answer" style="width: 20%; margin: 5px;" />
-      <img src="./readme-assets/fog.gif" alt="item" style="width: 20%; margin: 5px;"/>
-      <img src="./readme-assets/rain.gif" alt="ranking" style="width: 20%; margin: 5px;" />
+      <img src="./readme-assets/clear.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/cloud.gif" style="width: 30%; margin: 5px;" />
+      <img src="./readme-assets/fog.gif" style="width: 30%; margin: 5px;"/>
     </div>
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/sand.gif" alt="breaking" style="width: 20%; margin: 5px;"/>
-      <img src="./readme-assets/snow.gif" alt="answer" style="width: 20%; margin: 5px;" />
-      <img src="./readme-assets/thunder.gif" alt="item" style="width: 20%; margin: 5px;"/>
-      <img src="./readme-assets/tornado.gif" alt="ranking" style="width: 20%; margin: 5px;" />
+      <img src="./readme-assets/rain.gif" style="width: 30%; margin: 5px;" />
+      <img src="./readme-assets/sand.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/snow.gif" style="width: 30%; margin: 5px;" />
+    </div>
+    <div style="display: flex; text-align: center;">
+      <img src="./readme-assets/thunder.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/tornado.gif" style="width: 30%; margin: 5px;" />
     </div>
   </div>
 </details>
@@ -224,8 +226,6 @@ redux를 쓰기로 한 이상, 모든 상태관리를 리덕스로 해야할 것
 <br>
 
 ### **<i> 🔆 Intersection Observer API 사용하기</i>**
-
-<br>
 
 ### **무한스크롤링 방법 2가지**
 1. ⛔ Scroll Event와 lodash의 throttle 이용하기.
