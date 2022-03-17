@@ -67,6 +67,8 @@ function Login() {
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
                   autoComplete="off"
+                  minLength="8"
+                  maxLength="12"
                   required
                 />
               </LoginInputContainer>

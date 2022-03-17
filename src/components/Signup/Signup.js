@@ -262,6 +262,8 @@ function Signup() {
               placeholder="비밀번호"
               required
               autoComplete="off"
+              minLength="8"
+              maxLength="12"
               onChange={(e) => handlePasswordChange(e.target.value)}
             />
           </div>
@@ -272,6 +274,8 @@ function Signup() {
               placeholder="비밀번호 확인"
               required
               autoComplete="off"
+              minLength="8"
+              maxLength="12"
               onChange={(e) => handlePasswordCheck(e.target.value)}
             />
           </div>
