@@ -69,7 +69,7 @@ function InTransitLetterDetail() {
       );
       const elapsedSeconds = totalSeconds - remainingSeconds;
 
-      if (remainingSeconds < 0) {
+      if (remainingSeconds <= 0) {
         clearTimeout(timerId);
         setModalMessage("편지가 도착했습니다.");
         return;
