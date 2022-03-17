@@ -4,8 +4,9 @@
 
 ## **<i>slow online letter! </i>**
 
-온라인 편지지만 마치 실제 편지를 보내는 것과 같은 느낌을 연상케 합니다. <br>
-지금 편지가 어디쯤에 있는지 지도에서 **실시간**으로 확인해보세요! <br>
+해외에 사는 혹은 국내에 사는 펜팔 친구를 만들어 편지를 보내보세요! <br>
+온라인 편지지만 마치 실제 편지를 보내는 것처럼 배송 되는데에 시간이 소요됩니다. <br>
+지금 편지가 어느 나라를 지나는지, 어느 지역을 지나는지 지도에서 **실시간**으로 볼 수 있습니다! <br>
 편지의 현재 위치뿐만 아니라 현재 위치의 날씨까지 **귀여운 애니매이션**과 함께 확인하실 수 있습니다!
 
 <br>
@@ -118,7 +119,7 @@ _**BackEnd**_
   <summary>1. 자신이 현재 위치하고 있는 장소에 편지를 남겨 둘 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/leaveLetter.gif" style="width: 30%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -130,7 +131,9 @@ _**BackEnd**_
 <details>
   <summary>1. 배송 완료된 편지만 내용을 확인 할 수 있다.</summary>
   <div markdown="1">
-
+  <div style="display: flex; text-align: center;">
+      <img src="./readme-assets/delivered.gif" style="width: 30%; margin: 5px;"/>
+    </div>
   </div>
 </details>
 <details>
@@ -142,9 +145,9 @@ _**BackEnd**_
       <img src="./readme-assets/fog.gif" style="width: 30%; margin: 5px;"/>
     </div>
     <div style="display: flex; text-align: center;">
+      <span style="width: 30%; margin: 5px;">Clear</span>
       <span style="width: 30%; margin: 5px;">Clouds</span>
       <span style="width: 30%; margin: 5px;">Fog</span>
-      <span style="width: 30%; margin: 5px;">Clear</span>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/rain.gif" style="width: 30%; margin: 5px;" />
@@ -168,6 +171,17 @@ _**BackEnd**_
 </details>
 
 - 날씨 상태는 총 8가지가 존재합니다.
+
+<details>
+  <summary>3. 실시간 배송 확인 페이지에서 편지가 도착하게 되면 모달창이 뜹니다.</summary>
+  <div markdown="1">
+  <div style="display: flex; text-align: center;">
+      <img src="./readme-assets/arrival.gif" style="width: 30%; margin: 5px;"/>
+    </div>
+  </div>
+</details>
+
+- 확인을 누르면 메인 페이지로 가게 됩니다.
 
 <br>
 <br>

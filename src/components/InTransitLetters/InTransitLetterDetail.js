@@ -15,7 +15,7 @@ import mailBoxImg from "../../assets/mailbox.png";
 import lightningImg from "../../assets/lightining.png";
 import countryNames from "../../assets/countryCode.json";
 import getDistance from "../../utils/getDistance";
-import getCoorordinate from "../../utils/getCoorordinate";
+import getCoordinate from "../../utils/getCoordinate";
 import getWeatherType from "../../utils/getWeatherType";
 import { formatTotalTime, formatLeftTime } from "../../utils/formatTime";
 import { getCurrentLocationData } from "../../api/openWeather";
@@ -75,7 +75,7 @@ function InTransitLetterDetail() {
         return;
       }
 
-      const currentCoordinate = getCoorordinate(
+      const currentCoordinate = getCoordinate(
         [friend.lat, friend.lng],
         [user.lat, user.lng],
         totalSeconds,
@@ -109,7 +109,7 @@ function InTransitLetterDetail() {
         new Date()
       );
       const elapsedSeconds = totalSeconds - remainingSeconds;
-      const currentCoordinate = getCoorordinate(
+      const currentCoordinate = getCoordinate(
         [friend.lat, friend.lng],
         [user.lat, user.lng],
         totalSeconds,
