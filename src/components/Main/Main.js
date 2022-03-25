@@ -68,7 +68,7 @@ function Main() {
         setErrorMessage(error.response.data.message);
       }
     })();
-  }, [userId]);
+  }, [userId, location.loaded]);
 
   function handleLogoutButtonClick() {
     dispatch(logout());
@@ -195,7 +195,7 @@ function Main() {
         <MapWrapper>
           <h3>ㅡ find letter ㅡ</h3>
           {!location.loaded && <p>{LOADING_GET_LOCATION}</p>}
-          {location.loaded && (
+          {location.loaded && !location.error && (
             <>
               <StyledGreenButton onClick={handleLeaveLetterButtonClick}>
                 현재 위치에 편지 남기기

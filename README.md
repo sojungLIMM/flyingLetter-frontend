@@ -281,31 +281,22 @@ leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까
 
 1. ⛔ Scroll Event와 lodash의 throttle 이용하기.
 
-- Scroll Event에서 쓰이는 scrollTop 과 offsetHeight는 reflow를 일으켜서 성능상 좋지 않다.
-  - reflow: 모든 엘리먼트의 위치와 길이 등을 다시 계산하는 것으로 문서의 일부 혹은 전체를 다시 렌더링한다.
-- 최적화를 위해 lodash의 throttle을 사용할 수 있다.
-  - throttle: 동일 이벤트가 반복적으로 시행되는 경우 일정 시간 동안, 한번만 실행 되도록 만드는 개념.
-- 하지만 scroll 이벤트를 여전히 사용하기 때문에 reflow는 발생한다.
+- Scroll Event에서 쓰이는 scrollTop 과 offsetHeight는 scroll 할 때마다 reflow, repaint를 일으켜서 비용이 많이 들어 성능상 좋지 않습니다.
 
 2. ✅ new intersectionobeserver 이용하기.
-   > ❝The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.❞ - mdn
 
-- 화면에 내가 지정한 타겟 엘리먼트가 보이는지를 비동기적으로 관찰하는 API이다.
-- throttle을 사용하지 않아도 된다.
-- reflow가 발생하지 않는다.
+- 라이브러리가 필요하지 않고 reflow를 발생시키지 않아 브라우저 렌더링을 최적화 할 수 있습니다.
 
 <br>
 
-### **`intersectionobeserver을 사용하면서 어려웠던 점`**
+### **`intersectionObeserver을 사용하면서 어려웠던 점`**
 
-관찰할 대상을 선정하고 관찰 대상이 viewpoint에 들어오면 함수를 실행하는데 실행하는 함수는 page 넘버를 증가시키는 함수입니다. <br>
-page넘버가 증가하면 page넘버가 디펜던시로 있는 useEffect도 실행됩니다.<br>
-해당 useEffect에는 get요청을 하는 axios함수가 있어 다음페이지가 없어도 계속 증가된 page 숫자로 axios 요청을 날리게 되었습니다. <br>
-그래서 isNext라는 불리언 상태관리를 통해 분기처리하여 해결하였습니다.
+관찰할 대상을 선정하고 관찰 대상이 viewpoint에 들어오면 page 숫자를 증가시키는 콜백함수를 실행합니다. page넘버가 증가하면 page 숫자가 dependency로 있는 useEffect도 실행하는데 해당 useEffect는 get요청을 하는 axios함수를 실행시킵니다. 그래서 관찰할 대상이 viewpoint에만 있으면 계속 api요청을 하게 되어서 과도한 요청을 하게 되었습니다. <br>
+그래서 다음페이지의 유무를 isNext라는 불리언 상태관리를 통해 false이면 page 숫자를 증가시키지 못하도록 분기처리하여 해결하였습니다.
 
 <br>
 
-### **`intersectionobeserver을 사용한 이유`**
+### **`intersectionObeserver을 사용한 이유`**
 
 처음 화면을 구성할 때 요소들의 레이아웃을 렌더 트리에 구성하는 과정이 일어납니다. 레이아웃에 영향을 주는 변화가 생기면 다시 렌더 트리를 구성해야합니다. <br>
 다시 렌더트리를 구성하는 것이 reflow이며 reflow는 repaint의 상위 과정이기 때문에 repaint까지 일어나게 됩니다. <br>
