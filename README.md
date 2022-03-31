@@ -1,6 +1,10 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cc586782-8689-4c3a-93f5-87b32ffb860f/deploy-status)](https://app.netlify.com/sites/upbeat-ritchie-85e75e/deploys)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Npm Version](https://img.shields.io/badge/npm-v17.3.1-green)](https://www.npmjs.com/package/npm)
+
 # **💌 Flying-Letter**
 
-<image src="./readme-assets/login.gif" width="300px" />
+<image src="./readme-assets/login.gif" width="400px" />
 
 ## **<i>slow online letter! </i>**
 
@@ -37,11 +41,13 @@
 
 - **2021.02.21 ~ 2021.02.27 (1주차)**
 
-  아이디어 기획
+  [아이디어 기획](https://wave-king-6e0.notion.site/1da6b6761bf341878d13c7fe3c4e37a2)
 
-  목업 디자인
+  [목업 디자인](https://wave-king-6e0.notion.site/6da4d3b852e646dbafab16858e125c81)
 
-  세부 기능 설계 및 검증
+  [스키마 모델링](https://wave-king-6e0.notion.site/05340107039b4b7e8ff3c836b6a3b7b0)
+
+  [세부 기능 설계 및 검증](https://wave-king-6e0.notion.site/d68c78e29fe54223bc03aa177be91bb6)
 
 - **2021.02.28 ~ 2021.03.06 (2주차)**
 
@@ -91,7 +97,7 @@ _**BackEnd**_
   <summary>1. 원하는 펜팔 친구를 골라 편지를 보낸다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/tofriend.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/tofriend.gif" style="width: 50%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -102,7 +108,7 @@ _**BackEnd**_
   <summary>2. 자신의 위치 근처에 있는 편지를 확인하고 답장을 보낸다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/send.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/send.gif" style="width: 60%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -119,7 +125,7 @@ _**BackEnd**_
   <summary>1. 자신이 현재 위치하고 있는 장소에 편지를 남겨 둘 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/leaveLetter.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/leaveLetter.gif" style="width: 50%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -132,7 +138,7 @@ _**BackEnd**_
   <summary>1. 배송 완료된 편지만 내용을 확인 할 수 있다.</summary>
   <div markdown="1">
   <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/delivered.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/delivered.gif" style="width: 50%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -140,28 +146,32 @@ _**BackEnd**_
   <summary>2. 배송 중인 편지는 편지가 이동하는 경로와 현재 위치, 현재 위치에 따른 <strong>날씨 상황</strong>을 알 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/clear.gif" style="width: 30%; margin: 5px;"/>
-      <img src="./readme-assets/cloud.gif" style="width: 30%; margin: 5px;" />
-      <img src="./readme-assets/fog.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/clear.gif" style="width: 50%; margin: 5px;"/>
+      <img src="./readme-assets/cloud.gif" style="width: 50%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Clear</span>
       <span style="width: 30%; margin: 5px;">Clouds</span>
+    </div>
+    <div style="display: flex; text-align: center;">
+      <img src="./readme-assets/fog.gif" style="width: 50%; margin: 5px;"/>
+      <img src="./readme-assets/rain.gif" style="width: 50%; margin: 5px;" />
+    </div>
+    <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Fog</span>
-    </div>
-    <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/rain.gif" style="width: 30%; margin: 5px;" />
-      <img src="./readme-assets/sand.gif" style="width: 30%; margin: 5px;"/>
-      <img src="./readme-assets/snow.gif" style="width: 30%; margin: 5px;" />
-    </div>
-    <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Rain</span>
+    </div>
+    <div style="display: flex; text-align: center;">
+      <img src="./readme-assets/sand.gif" style="width: 50%; margin: 5px;"/>
+      <img src="./readme-assets/snow.gif" style="width: 50%; margin: 5px;" />
+    </div>
+    <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Sand</span>
       <span style="width: 30%; margin: 5px;">Snow</span>
     </div>
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/thunder.gif" style="width: 30%; margin: 5px;"/>
-      <img src="./readme-assets/tornado.gif" style="width: 30%; margin: 5px;" />
+      <img src="./readme-assets/thunder.gif" style="width: 50%; margin: 5px;"/>
+      <img src="./readme-assets/tornado.gif" style="width: 50%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">ThunderStorm</span>
@@ -171,12 +181,13 @@ _**BackEnd**_
 </details>
 
 - 날씨 상태는 총 8가지가 존재합니다.
+- 각각의 날씨에 따른 **커스텀 애니메이션 효과**가 적용되어 있습니다.
 
 <details>
   <summary>3. 실시간 배송 확인 페이지에서 편지가 도착하게 되면 모달창이 뜹니다.</summary>
   <div markdown="1">
   <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/arrival.gif" style="width: 30%; margin: 5px;"/>
+      <img src="./readme-assets/arrival.gif" style="width: 50%; margin: 5px;"/>
     </div>
   </div>
 </details>
@@ -224,11 +235,12 @@ _**BackEnd**_
 
 ### **`결과물`**
 
-<image src="./readme-assets/moving.gif" width="300px" />
+<image src="./readme-assets/moving.gif" width="500px" />
 
 <br>
 
 ### **`해결 방법`**
+
 처음에는 마커를 먼저 이동시키고 이동시킨 자리의 위도, 경도 값을 구하겠다고 계획을 짰습니다. <br>
 leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까지 공부해보면서 방법을 찾았지만 시도해 본 모든 방법들을 실패를 하였습니다. <br>
 생각을 전환하여 위도, 경도 값을 먼저 구하고 그 자리에 마커를 위치 시키게 해봐야겠다고 계획은 변경하였고 결과적으로 해결할 수 있었습니다.
@@ -236,7 +248,6 @@ leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까
 <br>
 
 ### **`시도한 방법`**
-
 
 1. ⛔ 폴리라인에 있는 모든 위도, 경도 값을 구하기.
 
@@ -252,7 +263,7 @@ leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까
 
 <br>
 
-3. ✅ 평평한 지도 위의 가상의 가로, 세로 좌표인 위도, 경도를 이용하기.
+3. ✅ 위도, 경도가 평면한 지도에서 좌표계의 x축과 y축을 나타낸다는 점을 이용하기.
 
 - <image src="./readme-assets/graph.png" />
 
@@ -263,7 +274,7 @@ leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까
    - h = x1 - x2 , w = y1 - y2
 3. 편지 마커가 60초 동안 간다고 하면 높이와 밑변을 각각 60으로 나눕니다.
    - m1 = h / 60, m2 = w / 60
-4. 이동한 시간이 20초라고 하면 m1 * 20, m2 * 20이 현재 위치가 됩니다.
+4. 이동한 시간이 20초라고 하면 m1 _ 20, m2 _ 20이 현재 위치가 됩니다.
 5. 출발지와 도착지 사이에서 8가지의 방향이 나올 수 있다고 계산하였습니다.
 
 - <image src="./readme-assets/direction.png" width="300px" />
@@ -273,7 +284,6 @@ leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까
 7. getCoordinate 함수로 만들어 사용하였습니다.
 
 <br>
-
 
 ### **<i> 🔆 Intersection Observer API 사용하기</i>**
 
