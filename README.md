@@ -49,6 +49,8 @@
 
   [세부 기능 설계 및 검증](https://wave-king-6e0.notion.site/d68c78e29fe54223bc03aa177be91bb6)
 
+  [테스크 카드 작성](https://wave-king-6e0.notion.site/228b5e085deb47038661e94bcc158294?v=49fd9a4254e94bedafed675e540cd0fc)
+
 - **2021.02.28 ~ 2021.03.06 (2주차)**
 
   개발 진행
@@ -146,32 +148,32 @@ _**BackEnd**_
   <summary>2. 배송 중인 편지는 편지가 이동하는 경로와 현재 위치, 현재 위치에 따른 <strong>날씨 상황</strong>을 알 수 있다.</summary>
   <div markdown="1">
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/clear.gif" style="width: 50%; margin: 5px;"/>
-      <img src="./readme-assets/cloud.gif" style="width: 50%; margin: 5px;" />
+      <img src="./readme-assets/clear.gif" style="width: 45%; margin: 5px;"/>
+      <img src="./readme-assets/cloud.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Clear</span>
       <span style="width: 30%; margin: 5px;">Clouds</span>
     </div>
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/fog.gif" style="width: 50%; margin: 5px;"/>
-      <img src="./readme-assets/rain.gif" style="width: 50%; margin: 5px;" />
+      <img src="./readme-assets/fog.gif" style="width: 45%; margin: 5px;"/>
+      <img src="./readme-assets/rain.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Fog</span>
       <span style="width: 30%; margin: 5px;">Rain</span>
     </div>
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/sand.gif" style="width: 50%; margin: 5px;"/>
-      <img src="./readme-assets/snow.gif" style="width: 50%; margin: 5px;" />
+      <img src="./readme-assets/sand.gif" style="width: 45%; margin: 5px;"/>
+      <img src="./readme-assets/snow.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">Sand</span>
       <span style="width: 30%; margin: 5px;">Snow</span>
     </div>
     <div style="display: flex; text-align: center;">
-      <img src="./readme-assets/thunder.gif" style="width: 50%; margin: 5px;"/>
-      <img src="./readme-assets/tornado.gif" style="width: 50%; margin: 5px;" />
+      <img src="./readme-assets/thunder.gif" style="width: 45%; margin: 5px;"/>
+      <img src="./readme-assets/tornado.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
       <span style="width: 30%; margin: 5px;">ThunderStorm</span>
