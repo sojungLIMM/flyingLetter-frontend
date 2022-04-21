@@ -10,7 +10,7 @@
 
 해외에 사는 혹은 국내에 사는 펜팔 친구를 만들어 편지를 보내보세요! <br>
 온라인 편지지만 마치 실제 편지를 보내는 것처럼 배송 되는데에 시간이 소요됩니다. <br>
-지금 편지가 어느 나라를 지나는지, 어느 지역을 지나는지 지도에서 **실시간**으로 볼 수 있습니다! <br>
+지금 나에게 배송중인 편지가 어느 나라를 지나는지, 어느 지역을 지나는지 지도에서 **실시간**으로 볼 수 있습니다! <br>
 편지의 현재 위치뿐만 아니라 현재 위치의 날씨까지 **귀여운 애니매이션**과 함께 확인하실 수 있습니다!
 
 <br>
@@ -22,6 +22,12 @@
 게다가 편지가 현재 어디를 지나고 있는지 또 현재 위치의 날씨는 어떤지 시각적으로 보여주면 재미있는 작업이 될 것 같다고 생각하여 본 프로젝트를 진행하게 되었습니다.
 
 <br>
+
+# **테스트 해보기**
+1. 아이디: welcome@test.com 비밀번호: 12345678에 로그인한다.
+2. 아이디 **우체통**에게 편지를 보낸다.
+3. 아이디: postbox@test.com 비밀번호: 12345678에 로그인한다.
+4. 배송 중인 편지를 확인한다.
 
 # **🔗 관련 링크**
 
@@ -152,32 +158,32 @@ _**BackEnd**_
       <img src="./readme-assets/cloud.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <span style="width: 30%; margin: 5px;">Clear</span>
-      <span style="width: 30%; margin: 5px;">Clouds</span>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Clear</div>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Clouds</div>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/fog.gif" style="width: 45%; margin: 5px;"/>
       <img src="./readme-assets/rain.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <span style="width: 30%; margin: 5px;">Fog</span>
-      <span style="width: 30%; margin: 5px;">Rain</span>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Fog</div>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Rain</div>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/sand.gif" style="width: 45%; margin: 5px;"/>
       <img src="./readme-assets/snow.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <span style="width: 30%; margin: 5px;">Sand</span>
-      <span style="width: 30%; margin: 5px;">Snow</span>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Sand</div>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Snow</div>
     </div>
     <div style="display: flex; text-align: center;">
       <img src="./readme-assets/thunder.gif" style="width: 45%; margin: 5px;"/>
       <img src="./readme-assets/tornado.gif" style="width: 45%; margin: 5px;" />
     </div>
     <div style="display: flex; text-align: center;">
-      <span style="width: 30%; margin: 5px;">ThunderStorm</span>
-      <span style="width: 30%; margin: 5px;">Tornado</span>
+      <div style="display: inline-block; width: 45%; margin: 5px;">ThunderStorm</div>
+      <div style="display: inline-block; width: 45%; margin: 5px;">Tornado</div>
     </div>
   </div>
 </details>
@@ -211,22 +217,14 @@ _**BackEnd**_
 
 # **<i>❓ Why Intersection Observer API</i>**
 
-### **무한스크롤링 방법 2가지**
-
-1. ⛔ Scroll Event와 lodash의 throttle 이용하기.
-
-- Scroll Event에서 쓰이는 scrollTop 과 offsetHeight는 scroll 할 때마다 reflow, repaint를 일으켜서 비용이 많이 들어 성능상 좋지 않습니다.
-
-2. ✅ new intersectionobeserver 이용하기.
-
-- 라이브러리가 필요하지 않고 reflow를 발생시키지 않아 브라우저 렌더링을 최적화 할 수 있습니다.
+기존에는 Scroll Event와 lodash의 throttle 이용하여 무한스크롤링을 구현하였습니다. 개발을 배우면서 하나의 기능을 완성하는 것도 중요하지만 효율적이고 최적화하며 기능을 구현하는 것도 매우 중요하다는 것을 배웠습니다. Scroll Event에서 쓰이는 scrollTop 과 offsetHeight는 scroll 할 때마다 reflow, repaint를 일으켜서 비용이 많이 들어 성능상 좋지 않다는 것을 조사하면서 알게 되었습니다. 라이브러리가 필요하지 않고 reflow를 발생시키지 않아 비용도 줄일 수 있고 브라우저 렌더링을 최적화 할 수 있는 방법인 intersectionobeserver API를 공부하고 적용하였습니다.
 
 <br>
+<br>
 
-처음 화면을 구성할 때 요소들의 레이아웃을 렌더 트리에 구성하는 과정이 일어납니다. 레이아웃에 영향을 주는 변화가 생기면 다시 렌더 트리를 구성해야합니다. <br>
-다시 렌더트리를 구성하는 것이 reflow이며 reflow는 repaint의 상위 과정이기 때문에 repaint까지 일어나게 됩니다. <br>
-따라서 성능을 위해 reflow를 최소화하며 성능을 높이고 비용을 줄이는 게 중요하다고 생각이 들었습니다. <br>
-`결과적으로 intersectionobeserver는 reflow를 일으키지 않는다는 점이 큰 가치가 있다고 판단되어 사용하게 되었습니다.`
+# **<i>🔥 관심사 분리하기</i>**
+
+회원가입 컴포넌트에서 사용자의 다양한 input 값을 받고 이미지 미리보기 로직도 있으면서 geolocation을 가져오는 로직까지 있어서 로직 자체가 굉장히 복잡해졌고 하나의 컴포넌트가 너무 많은 기능을 가지고 있다고 생각이 들었습니다. 게다가 수정하기 위해서 그 로직을 찾아야하는 것도 굉장히 어려웠습니다. 따라서 커스텀 훅으로 기능들을 분리하게 되었고 코드가 단순해졌을 뿐만 아니라 여러 컴포넌트에서 재사용 가능하게 되었습니다. 결과적으로 useGeolocation이라는 사용자의 현재 위치를 가져오는 커스텀 훅과 useIntersection이라는 무한스크롤링을 구현하는 커스텀 훅을 만들어서 사용할 수 있었습니다.
 
 <br>
 <br>
@@ -234,7 +232,7 @@ _**BackEnd**_
 # **<i>🔥  실시간으로 변하는 편지 마커의 위도 경도를 구하는 어려움.</i>**
 
 출발지와 도착지가 직선으로 연결되어 있고 그 선을 따라 마커가 실시간으로 이동하는 것과 동시에 현재 위치의 날씨를 보여주고 싶었습니다. 그러기 위해서 사용할 openWeather api에 위도 경도 값을 포함하여 get요청을 해야합니다. <br>
-<i>`따라서 마커의 위치가 폴리라인을 따라 실시간으로 이동하면서도 마커가 이동한 곳의 위도, 경도값을 알아야만 했습니다.`</i>
+**따라서 마커의 위치가 폴리라인을 따라 실시간으로 이동하면서도 마커가 이동한 곳의 위도, 경도값을 알아야만 했습니다.**
 
 <br>
 
@@ -247,8 +245,7 @@ _**BackEnd**_
 ### **`해결 방법`**
 
 처음에는 마커를 먼저 이동시키고 이동시킨 자리의 위도, 경도 값을 구하겠다고 계획을 짰습니다. <br>
-leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까지 공부해보면서 방법을 찾았지만 시도해 본 모든 방법들을 실패를 하였습니다. <br>
-생각을 전환하여 위도, 경도 값을 먼저 구하고 그 자리에 마커를 위치 시키게 해봐야겠다고 계획은 변경하였고 결과적으로 해결할 수 있었습니다.
+leaflet.js 공식 문서를 샅샅히 살피고 다른 지도 라이브러리까지 공부해보면서 방법을 찾았지만 시도해 본 모든 방법들을 실패를 하였습니다. 생각을 전환하여 위도, 경도 값을 먼저 구하고 그 자리에 마커를 위치 시키게 해봐야겠다고 계획은 변경하였고 결과적으로 해결할 수 있었습니다.
 
 <br>
 

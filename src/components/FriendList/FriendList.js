@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Modal from "../common/Modal";
@@ -7,12 +7,7 @@ import FriendListEntry from "../FriendList/FriendListEntry";
 import PrevButton from "../common/PrevButton";
 import ListWrapper from "../common/ListWrapper";
 import { getFriendList } from "../../api/axios";
-
-const options = {
-  root: null,
-  rootMargin: "1px",
-  threshold: "1",
-};
+import useIntersection from "../../hooks/useIntersection";
 
 function FriendList() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,29 +16,11 @@ function FriendList() {
   const [isLoading, setIsLoading] = useState(false);
   const [friendList, setFriendList] = useState([]);
 
-  const targetObserver = useRef();
+  const targetObserver = useIntersection(setPage, isNext);
 
   useEffect(() => {
     fetchFriendsData(page);
   }, [page]);
-
-  useEffect(() => {
-    let observer;
-
-    if (targetObserver.current) {
-      observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && isNext) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      }, options);
-
-      observer.observe(targetObserver.current);
-    }
-
-    return () => {
-      observer?.disconnect(targetObserver.current);
-    };
-  }, [targetObserver.current, isNext]);
 
   async function fetchFriendsData(page) {
     try {

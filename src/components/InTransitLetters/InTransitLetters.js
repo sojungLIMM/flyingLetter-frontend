@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -9,12 +9,7 @@ import ListWrapper from "../common/ListWrapper";
 import PrevButton from "../common/PrevButton";
 import { getLetters } from "../../api/axios";
 import { NO_FLYING_LETTER } from "../../constants";
-
-const options = {
-  root: null,
-  rootMargin: "1px",
-  threshold: "1",
-};
+import useIntersection from "../../hooks/useIntersection";
 
 function InTransitLetters() {
   const userId = useSelector(({ user }) => user.data._id);
@@ -25,29 +20,11 @@ function InTransitLetters() {
   const [isLoading, setIsLoading] = useState(true);
   const [letters, setLetters] = useState([]);
 
-  const targetObserver = useRef();
+  const targetObserver = useIntersection(setPage, isNext);
 
   useEffect(() => {
     fetchLettersData(page);
   }, [page]);
-
-  useEffect(() => {
-    let observer;
-
-    if (targetObserver.current) {
-      observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && isNext) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      }, options);
-
-      observer.observe(targetObserver.current);
-    }
-
-    return () => {
-      observer?.disconnect(targetObserver.current);
-    };
-  }, [targetObserver.current, isNext]);
 
   async function fetchLettersData(page) {
     try {
